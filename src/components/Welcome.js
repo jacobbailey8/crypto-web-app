@@ -8,7 +8,7 @@ function Welcome() {
             <span className=' bg-gradient-to-r from-purple  to-blue-400 text-transparent bg-clip-text'> Currencies</span>
         </h1>
         <button className='p-5 font-bold rounded-full  text-white text-xl transform -translate-y-4 bg-purple'>Search Now</button>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white animate-bounce w-10 h-10 ">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white animate-bounce w-10 h-10 transform translate-y-12">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
         </svg>
 
