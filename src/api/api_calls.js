@@ -1,7 +1,5 @@
 const API_BASE = 'https://api.coingecko.com/api/v3';
 
-
-
 const trending = async () => {
     let res = await fetch(`${API_BASE}/search/trending`)
     let data = await res.json();
@@ -20,5 +18,11 @@ const watchlistDataChange = async (list) => {
     return data;
 }
 
+const getAllCoins = async () => {
+    let res = await fetch(`${API_BASE}/coins/list`);
+    let data = await res.json();
+    return data;
+}
 
-export {trending, watchlistDataChange};
+
+export {trending, watchlistDataChange, getAllCoins};
