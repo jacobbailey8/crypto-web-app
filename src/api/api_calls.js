@@ -4,8 +4,6 @@ const trending = async () => {
     let res = await fetch(`${API_BASE}/search/trending`)
     let data = await res.json();
     return data.coins;
-
-   
 }
 
 const watchlistDataChange = async (list) => {
@@ -24,5 +22,10 @@ const getAllCoins = async () => {
     return data;
 }
 
+const singleCoinData = async (id) => {
+    let res = await fetch(`${API_BASE}/coins/${id}`);
+    let data = await res.json();
+    return data;
+}
 
-export {trending, watchlistDataChange, getAllCoins};
+export {trending, watchlistDataChange, getAllCoins, singleCoinData};
