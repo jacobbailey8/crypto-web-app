@@ -1,50 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { getAllCoins } from '../api/api_calls';
 import { singleCoinData } from '../api/api_calls';
 import '../index.css'
 
 
 
-function SearchSection() {
+function SearchSection({coins}) {
 
     const [inputValue, setInputValue] = useState('');
-    const [coins, setCoins] = useState([]);
     const [coinName, setCoinName] = useState('');
     const [coinImg, setCoinImg] = useState('');
     const [coinRank, setCoinRank] = useState(0);
     const [coinLink, setCoinLink] = useState('');
     const [coinPrice, setCoinPrice] = useState('');
-    const [coinMarketCap, setCoinMarketCap] = useState('');
+    const [coinMarketCap, setCoinMarketCap] = useState('n/a');
     const [coinChange, setCoinChange] = useState('');
     const [coinSymbol, setCoinSymbol] = useState('');
+    const [coinDescription, setCoinDescription] = useState('');
 
-
-
-
-
-
-
-    useEffect(() => {
-      const getData = async () => {
-        try {
-            let data = await getAllCoins();
-            setCoins(data);
-            return 0;
-        }
-        catch (err) {
-            console.log(err);
-            return 1;
-        }
-        
-      }
-      let loop = getData();
-      while (loop == 1){
-        loop = getData();
-      }
-    },[coins])
     
-  
-
     const handleChange = (event) => {
         setInputValue(event.target.value);
       };
@@ -57,9 +30,10 @@ function SearchSection() {
       setCoinRank(data.market_cap_rank);
       setCoinLink(data.links.homepage[0]);
       setCoinPrice(data.market_data.current_price.usd);
-      setCoinChange(data.price_change_24h);
+      setCoinChange(data.market_data.price_change_percentage_24h);
       setCoinSymbol(data.symbol);
-      setCoinMarketCap(data.market_cap.usd);
+      setCoinMarketCap(data.market_data.market_cap.usd);
+      setCoinDescription(data.description.en)
     }
 
     const onSearch = (item) => {
@@ -117,9 +91,13 @@ function SearchSection() {
         <hr className='w-[70%] mt-2 ' />
         <div className='self-start ml-12 mt-2'>Price: ${coinPrice}</div>
         <div className='self-start ml-12 mt-2'>Market Cap: {coinMarketCap}</div>
-        <div className='self-start flex gap-8 mt-2 ml-12  '>
-          <div>24h Change: {coinChange}</div>
+        <div className='self-start flex mt-2 ml-12  '>
+          <div className='w-[50%]'>24h Change: {coinChange}%</div>
           <div>Symbol: {coinSymbol}</div>
+        </div>
+        <div className='text-lg mt-4 self-start ml-12'>Description: </div>
+        <div id='scrollbar' dangerouslySetInnerHTML={{__html: coinDescription}} className=' self-start ml-12 w-64 sm:w-96 h-32 overflow-scroll [&_a]:text-purple'>
+         
         </div>
 
       </div>
