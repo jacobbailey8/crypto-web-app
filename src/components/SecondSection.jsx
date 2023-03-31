@@ -65,6 +65,7 @@ function SecondSection() {
             <div className=' errorMsg absolute w-full h-full hidden top-24 left-20 justify-center text-xl  z-10'>Could not fetch data...</div>
 
 
+          
  
             {coinList.map(coin => (
                <CoinRow key={coin.item.id} coin = {coin} priceChanges={coinPriceChanges}/>

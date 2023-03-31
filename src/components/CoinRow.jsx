@@ -22,14 +22,20 @@ function CoinRow({coin, priceChanges}) {
 
 
   return (
-    <div className='flex p-3 w-full items-center'>
-        <div className='w-[70%] flex gap-4 items-center'>
+    <div className='flex py-3 pr-2 w-full items-center relative'>
+
+        <div className='w-[70%] flex gap-4 items-center invisible '>
             <img className='rounded-full' src={coin.item.small} alt="coin" />
             <div className='uppercase'>{coin.item.id}</div>
         </div>
-        <div style={{color: priceColor}} className=' flex justify-center w-[30%]'>${priceUpdate}</div>
+        <div style={{color: priceColor}} className='flex justify-center w-[30%] invisible'>${priceUpdate}</div>
    
+        <div className='flex gap-6 p-3 w-full items-center absolute z-10'>
+            <div className='w-[80%] mr-4 h-12 bg-purple rounded-full animate-pulse '></div>
+            <div className='w-[35%] h-12 rounded-full bg-purple animate-pulse '></div>
+        </div>
     </div>
+
   )
 }
 
