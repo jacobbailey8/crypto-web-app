@@ -43,6 +43,17 @@ function SearchSection({coins}) {
 
        
     };
+
+    // const searchByName = (event) => {
+    //   event.preventDefault();
+    //   let results = coins.filter((item) => {
+    //     item.name.toLowerCase().includes(inputValue.toLowerCase);
+    //   })
+    //   if (results.length() > 0){
+    //     updateCoin(results[0].id);
+    //   }
+    //   return;
+    // }
     
 
   return (
@@ -50,14 +61,14 @@ function SearchSection({coins}) {
       <div className=''>
           <h1 className='text-white text-3xl m-4 font-bold'>Search Coins</h1>
           <form className='flex items-center h-12 mb-2  rounded-lg ml-4 w-80'>
-              <input onChange={handleChange} value={inputValue} type="text" placeholder='ex: bitcoin' className='bg-overlay text-white py-4 px-2 w-[85%] h-full rounded-l-lg' />
-              <button  type='button' className='bg-purple p-2 rounded-md w-[15%] h-full flex items-center justify-center'>
+              <input onChange={handleChange} value={inputValue} type="text" placeholder='ex: bitcoin' className='bg-overlay text-white py-4 px-4 w-[85%] h-full rounded-lg' />
+              <button   type='button' className='bg-purple p-2 rounded-md w-[15%] h-[90%] flex items-center justify-center'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
               </button>
           </form>
-          <div className='dropdown text-white bg-overlay w-80  rounded-xl ml-4'>
+          <div className='dropdown text-white bg-overlay w-80 rounded-xl ml-4 max-h-72 overflow-auto'>
             {coins
                 .filter((item) => {
                   const searchTerm = inputValue.toLowerCase();
@@ -69,7 +80,7 @@ function SearchSection({coins}) {
                     fullName !== searchTerm
                   );
                 })
-                .slice(0, 5)
+
                 .map((item) => (
                   <div
                     onClick={() => {
@@ -89,14 +100,14 @@ function SearchSection({coins}) {
         <a href={coinLink} target='blank'><div className='text-xl font-bold mt-4 cursor-pointer hover:underline transform hover:scale-110'>{coinName}</div></a>
         <div className='text-lg mt-2'>Rank: {coinRank}</div>
         <hr className='w-[70%] mt-2 ' />
-        <div className='self-start ml-12 mt-2'>Price: ${coinPrice}</div>
-        <div className='self-start ml-12 mt-2'>Market Cap: {coinMarketCap}</div>
+        <div className='self-start ml-12 mt-2'>Price: $ {coinPrice}</div>
+        <div className='self-start ml-12 mt-2'>Market Cap: $ {coinMarketCap}</div>
         <div className='self-start flex mt-2 ml-12  '>
           <div className='w-[50%]'>24h Change: {coinChange}%</div>
           <div>Symbol: {coinSymbol}</div>
         </div>
         <div className='text-lg mt-4 self-start ml-12'>Description: </div>
-        <div id='scrollbar' dangerouslySetInnerHTML={{__html: coinDescription}} className=' self-start ml-12 w-64 sm:w-96 h-32 overflow-scroll [&_a]:text-purple'>
+        <div id='scrollbar' dangerouslySetInnerHTML={{__html: coinDescription}} className=' self-start ml-12 w-64 sm:w-96 h-32 overflow-scroll [&_a]:text-violet-300'>
          
         </div>
 
