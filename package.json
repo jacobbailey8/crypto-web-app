@@ -17,14 +17,19 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write \"{,!(node_modules)/**/}*.js\""
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "@imaginary-cloud/react"
     ]
   },
+  "prettier": "@imaginary-cloud/prettier-config",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -38,6 +43,9 @@
     ]
   },
   "devDependencies": {
+    "@imaginary-cloud/prettier-config": "^1.0.0",
+    "eslint": "^8.37.0",
+    "prettier": "^2.8.7",
     "tailwindcss": "^3.3.0"
   }
 }
