@@ -43,17 +43,6 @@ function SearchSection({coins}) {
 
        
     };
-
-    // const searchByName = (event) => {
-    //   event.preventDefault();
-    //   let results = coins.filter((item) => {
-    //     item.name.toLowerCase().includes(inputValue.toLowerCase);
-    //   })
-    //   if (results.length() > 0){
-    //     updateCoin(results[0].id);
-    //   }
-    //   return;
-    // }
     
 
   return (
@@ -112,14 +101,6 @@ function SearchSection({coins}) {
         </div>
 
       </div>
-
-        
-      
-
-
-
-
-
     </div>
   )
 }

@@ -1,47 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { trending, watchlistDataChange } from '../api/api_calls';
-import CoinRow from './CoinRow';
+
 
 function SecondSection() {
 
-    // const [coinList, setCoinList] = useState([]);
-    // const [coinPriceChanges, setCoinPriceChanges] = useState({});
-    // const [loading, setLoading] = useState(true);
-
-    // useEffect(() => {
-    //     // set initial trending coins state
-    //     const setInitialData = async () => {
-    //         try {
-    //             let data = await trending();
-    //             document.querySelector('.errorMsg').classList.add('hidden');
-    //             setCoinList(data);
-
-    //         }
-    //         catch (err){
-    //             document.querySelector('.errorMsg').classList.remove('hidden');
-    //             setCoinList([]);
-    //         }
-    //     }
-    //     setInitialData();
-    // },[]);
-
-    // const getData = async() => {
-    //     try {
-    //         let resp = await watchlistDataChange(coinList);
-    //         setCoinPriceChanges(resp);
-    //     }
-    //     catch (err) {
-    //         setCoinPriceChanges({});
-    //     }
-    // }
-    // useEffect(() => {
-    //     getData();
-    // },[]);
+   
     
 
     const spinLoader = () => {
         document.querySelector('#spin').classList.add('animate-spin');
-       // getData();
         setTimeout(() => {
             document.querySelector('#spin').classList.remove('animate-spin');
         }, 1000);
@@ -63,15 +30,7 @@ function SecondSection() {
                 <div className='flex justify-center w-[30%]'>Last 24h</div>
             </div>
 
-            <div className=' errorMsg absolute w-full h-full top-24 flex justify-center text-xl  z-10'>Could not fetch data...</div>
-
-
-          
- 
-            {/* {coinList.map(coin => (
-               <CoinRow key={coin.item.id} coin = {coin} priceChanges={coinPriceChanges} loading={loading}/>
-            ))}
-             */}
+           
             
                 
             
