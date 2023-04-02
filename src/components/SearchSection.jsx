@@ -12,11 +12,15 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-
+import { useContext } from 'react';
+import WatchlistContext from '../WatchlistContext';
 
 
 
 function SearchSection({ coins }) {
+
+  const [coinID, setCoinID] = useState(undefined);
+
 
   const [inputValue, setInputValue] = useState('');
   const [coinName, setCoinName] = useState('');
@@ -29,6 +33,9 @@ function SearchSection({ coins }) {
   const [coinSymbol, setCoinSymbol] = useState('');
   const [coinDescription, setCoinDescription] = useState('');
   const [chartData, setChartData] = useState(undefined);
+
+  const { watchlist } = useContext(WatchlistContext);
+  const { addToList } = useContext(WatchlistContext);
 
   useEffect(() => {
     updateCoin('bitcoin');
@@ -81,7 +88,7 @@ function SearchSection({ coins }) {
     let data = await singleCoinData(id);
     let prices = await getChartData(id);
 
-
+    setCoinID(data.id);
     setCoinImg(data.image.large);
     setCoinName(data.name);
     setCoinRank(data.market_cap_rank || 'n/a');
@@ -100,6 +107,21 @@ function SearchSection({ coins }) {
     updateCoin(item.id);
   };
 
+  const handleAddCoin = () => {
+    // add coin id to global state list of watchlist coins
+    if (watchlist.includes(coinID)) {
+      console.log(watchlist);
+
+      // do nothing
+      return;
+    }
+    else {
+      addToList(coinID);
+      console.log(watchlist);
+      // add animations
+    }
+
+  }
 
   return (
     <div id='search-coins' className='w-screen  relative '>
@@ -139,7 +161,7 @@ function SearchSection({ coins }) {
       <div className='info sm:mt-12 flex justify-center col-span-2'>
         <div className='text-white  bg-overlay w-full mx-2 sm:m-6 rounded-lg mt-4 sm:mt-2 flex flex-col items-center justify-center py-4 relative'>
           {/* add to list button */}
-          <button className='text-white bg-purple px-2 py-2 absolute top-0 right-0  m-2 rounded-xl'>
+          <button onClick={handleAddCoin} className='text-white bg-purple px-2 py-2 absolute top-0 right-0  m-2 rounded-xl'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6 text-white">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>

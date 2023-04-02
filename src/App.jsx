@@ -7,20 +7,25 @@ import SearchSection from './components/SearchSection';
 import coinList from '../src/data/coinList'
 import Newsfeed from './components/Newsfeed';
 import './index.css';
+import { WatchlistProvider } from './WatchlistContext';
+
 
 function App() {
   const allCoins = coinList;
 
   return (
-    <div className="App font-space">
-      <div className="bg-black w-screen h-screen fixed inset-0 background" />
-      <Header />
-      <Welcome />
-      <SecondSection />
-      <SearchSection coins={allCoins} />
-      <Newsfeed />
+    <WatchlistProvider>
+      <div className="App font-space">
+        <div className="bg-black w-screen h-screen fixed inset-0 background" />
+        <Header />
+        <Welcome />
+        <SecondSection />
+        <SearchSection coins={allCoins} />
+        <Newsfeed />
+      </div >
+    </WatchlistProvider>
 
-    </div>
+
   );
 }
 

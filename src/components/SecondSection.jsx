@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import CoinRow from './CoinRow';
+import { useContext } from 'react';
+import WatchlistContext from '../WatchlistContext';
 
 
 
 function SecondSection() {
 
+    const { watchlist } = useContext(WatchlistContext);
 
     const spinLoader = () => {
         document.querySelector('#spin').classList.add('animate-spin');
@@ -14,7 +18,7 @@ function SecondSection() {
     }
 
     return (
-        <div className='w-screen h-screen relative'>
+        <div id='watchlist' className='w-screen h-screen relative'>
             <div className='m-3 flex justify-between items-center'>
                 <h1 className='text-3xl font-bold text-white'>Market Updates</h1>
                 <svg id='spin' onClick={spinLoader} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
@@ -22,12 +26,23 @@ function SecondSection() {
                 </svg>
             </div>
 
-            <div className='table px-2 w-full text-white mt-6 rounded-t-lg relative'>
-                <div className='head flex text-xl rounded-t-lg p-3 bg-purple mb-4 '>
-                    <div className='w-[70%] flex pl-2'>Coin</div>
-                    <div className='flex justify-center w-[30%]'>Last 24h</div>
+            <div className='px-2 w-full text-white mt-6 rounded-t-lg relative flex flex-col gap-4 max-h-[600px] overflow-scroll'>
+                <div className='head flex justify-around sm:justify-between  text-xl rounded-t-lg p-3 bg-purple '>
+                    <div className='w-[50%] sm:w-[25%]'>Coin</div>
+                    <div className='hidden sm:block sm:w-[25%] text-center'>Price</div>
+                    <div className='w-[50%] sm:w-[25%] text-center'>Last 24h</div>
+                    <div className='hidden sm:block sm:w-[25%] text-center'>Market Cap</div>
                 </div>
+
+                {
+                    watchlist.map((coin) => (
+                        <CoinRow coin={coin} />
+                    ))
+                }
+
             </div>
+
+
 
 
         </div>

@@ -30,7 +30,7 @@ function Newsfeed() {
     }
 
     return (
-        <div className='relative'>
+        <div id='newsfeed' className='relative'>
             <div className="flex gap-4 items-center">
                 <h1 className='text-3xl font-bold text-white mt-10 ml-4'>Newsfeed</h1>
                 <form onSubmit={handleSubmitSearch} className='mt-10 mr-2 '>
