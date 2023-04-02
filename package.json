@@ -22,13 +22,6 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write \"{,!(node_modules)/**/}*.js\""
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "@imaginary-cloud/react"
-    ]
-  },
   "prettier": "@imaginary-cloud/prettier-config",
   "browserslist": {
     "production": [
