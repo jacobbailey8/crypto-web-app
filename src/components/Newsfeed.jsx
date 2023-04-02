@@ -16,9 +16,9 @@ function Newsfeed() {
         }
     }
 
-    useEffect(() => {
-        getData(coins);
-    }, [])
+    // useEffect(() => {
+    //     getData(coins);
+    // }, [])
 
     const handleChange = (event) => {
         setInputValue(event.target.value);

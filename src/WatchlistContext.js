@@ -6,13 +6,18 @@ export function WatchlistProvider({ children }) {
 
 
     const [watchlist, setWatchList] = useState([]);
+    const [currentCoin, setCurrentCoin] = useState('bitcoin');
 
     const addToList = (value) => {
         setWatchList((prev) => [...prev, value])
     }
 
+    const changeCurrentCoin = (id) => {
+        setCurrentCoin(id);
+    }
+
     return (
-        <WatchlistContext.Provider value={{ watchlist, addToList }}>{children}</WatchlistContext.Provider>
+        <WatchlistContext.Provider value={{ watchlist, currentCoin, addToList, changeCurrentCoin }}>{children}</WatchlistContext.Provider>
     )
 }
 

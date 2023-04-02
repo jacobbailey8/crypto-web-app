@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { singleCoinData } from '../api/coinGeckoAPI';
+import { useContext } from 'react';
+import WatchlistContext from '../WatchlistContext';
+
 
 function CoinRow({ coin }) {
+
+    const { changeCurrentCoin } = useContext(WatchlistContext);
 
     const [loading, setLoading] = useState(true);
     const [coinData, setCoinData] = useState(undefined);
@@ -15,7 +20,15 @@ function CoinRow({ coin }) {
         getData(coin);
     }, [])
 
-
+    const showCoinInfo = () => {
+        changeCurrentCoin(coin);
+        const coinInfo = document.querySelector('.CoinInfo');
+        coinInfo.classList.remove('-z-20');
+        coinInfo.classList.add('z-20');
+        coinInfo.classList.remove('-translate-y-56');
+        coinInfo.classList.remove('opacity-0');
+        coinInfo.classList.add('opacity-100');
+    }
     return (
         <div className='' onLoad={() => setLoading(false)}>
             {loading &&
@@ -27,7 +40,7 @@ function CoinRow({ coin }) {
             {
                 coinData ?
                     (
-                        <div className='flex items-center rounded-lg  text-xl p-3 text-white hover:bg-overlay cursor-pointer'>
+                        <div onClick={showCoinInfo} className='flex items-center rounded-lg  text-xl p-3 text-white hover:bg-overlay cursor-pointer'>
                             <div className='w-[50%] flex items-center sm:w-[25%]'>
                                 <img className='rounded-full' src={coinData.image.small || ''} alt="coinImage" />
                                 <p className='transfrom translate-x-2'>{coinData.name}</p>
@@ -45,6 +58,7 @@ function CoinRow({ coin }) {
                     )
                     : undefined
             }
+
 
         </div>
 

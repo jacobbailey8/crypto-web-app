@@ -16,14 +16,19 @@ function Welcome() {
   const [doge, setDoge] = useState(undefined);
 
   const getData = async () => {
-    let data = await singleCoinData('bitcoin');
-    setBitcoin(data);
-    data = await singleCoinData('ethereum');
-    setEth(data);
-    data = await singleCoinData('solana');
-    setSol(data);
-    data = await singleCoinData('dogecoin');
-    setDoge(data);
+    try {
+      let data = await singleCoinData('bitcoin');
+      setBitcoin(data);
+      data = await singleCoinData('ethereum');
+      setEth(data);
+      data = await singleCoinData('solana');
+      setSol(data);
+      data = await singleCoinData('dogecoin');
+      setDoge(data);
+    }
+    catch (err) {
+      console.log(err);
+    }
   }
 
   useEffect(() => {

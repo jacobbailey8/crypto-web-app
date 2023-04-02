@@ -17,10 +17,14 @@ html {
         linear-gradient(336deg, rgba(11, 1, 59, 1), rgba(8, 8, 173, 1) 711%, rgba(6, 34, 125, 1)); */
 }
 
-.info {
+.CoinInfo {
 
     background: linear-gradient(217deg, rgba(29, 0, 57, 1) 10%, rgba(4, 1, 14, 1) 60.71%, rgba(33, 6, 125, 1)),
         linear-gradient(127deg, rgba(39, 1, 114, 1) 20%, rgba(49, 0, 97, 1) 70.71%, rgba(115, 6, 125, 1)),
         linear-gradient(336deg, rgba(11, 1, 59, 1), rgba(8, 8, 173, 1) 711%, rgba(6, 34, 125, 1));
 
+}
+
+.description a {
+    @apply text-violet-400
 }

@@ -20,7 +20,7 @@ function Header() {
 
 
   return (
-    <div style={{ background: headerBG }} className='py-2 px-3 flex justify-between items-center fixed top-0  w-screen z-20 transition-all duration-500 ease-out'>
+    <div style={{ background: headerBG }} className='py-2 px-3 flex justify-between items-center fixed top-0  w-screen z-10 transition-all duration-500 ease-out'>
       <div className='text-white text-xl font-bold w-40'>CryptoCave</div>
       <div className='hidden md:flex gap-10 lg:gap-16 text-white text-md'>
         <a href="#home"><h1>Home</h1></a>
