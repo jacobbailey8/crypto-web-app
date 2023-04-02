@@ -15,12 +15,12 @@ function App() {
 
   return (
     <WatchlistProvider>
-      <div className="App font-space">
+      <div className="App font-space overflow-hidden">
         <div className="bg-black w-screen h-screen fixed inset-0 background" />
         <Header />
         <Welcome />
-        <SecondSection />
         <SearchSection coins={allCoins} />
+        <SecondSection />
         <Newsfeed />
       </div >
     </WatchlistProvider>

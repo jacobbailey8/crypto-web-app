@@ -14,15 +14,19 @@ import {
 import { Line } from 'react-chartjs-2';
 import { useContext } from 'react';
 import WatchlistContext from '../WatchlistContext';
+import '../index.css'
 
 
 
 function SearchSection({ coins }) {
 
-  const [coinID, setCoinID] = useState(undefined);
 
 
+  // input
   const [inputValue, setInputValue] = useState('');
+
+  // coin
+  const [coinID, setCoinID] = useState(undefined);
   const [coinName, setCoinName] = useState('');
   const [coinImg, setCoinImg] = useState('');
   const [coinRank, setCoinRank] = useState(0);
@@ -34,8 +38,13 @@ function SearchSection({ coins }) {
   const [coinDescription, setCoinDescription] = useState('');
   const [chartData, setChartData] = useState(undefined);
 
+  // context
   const { watchlist } = useContext(WatchlistContext);
   const { addToList } = useContext(WatchlistContext);
+
+  // info
+  const [infoOpacity, setInfoOpacity] = useState('0');
+
 
   useEffect(() => {
     updateCoin('bitcoin');
@@ -105,6 +114,14 @@ function SearchSection({ coins }) {
     setInputValue(item.name);
     // our api to fetch the search result
     updateCoin(item.id);
+    setInfoOpacity('100');
+    document.querySelector('.info').classList.remove('-translate-y-56');
+    document.querySelector('.info').classList.add('translate-y-0');
+    document.querySelector('.info').classList.remove('-z-20');
+    document.querySelector('.info').classList.add('z-20');
+
+
+
   };
 
   const handleAddCoin = () => {
@@ -121,6 +138,14 @@ function SearchSection({ coins }) {
       // add animations
     }
 
+  }
+
+  const handleBackBtn = () => {
+    setInfoOpacity('0');
+    document.querySelector('.info').classList.add('-translate-y-56');
+    document.querySelector('.info').classList.remove('translate-y-0');
+    document.querySelector('.info').classList.add('-z-20');
+    document.querySelector('.info').classList.remove('z-20');
   }
 
   return (
@@ -158,12 +183,18 @@ function SearchSection({ coins }) {
             ))}
         </div>
       </div>
-      <div className='info sm:mt-12 flex justify-center col-span-2'>
-        <div className='text-white  bg-overlay w-full mx-2 sm:m-6 rounded-lg mt-4 sm:mt-2 flex flex-col items-center justify-center py-4 relative'>
+      <div style={{ opacity: infoOpacity }} className='info  flex justify-center col-span-2 fixed top-0 left-0 transform -translate-y-56 w-screen h-screen  transition-all duration-300 ease-out -z-20'>
+        <div className='text-white  w-full mx-2 sm:m-6 rounded-lg mt-4 sm:mt-2 flex flex-col items-center justify-center py-4 relative'>
           {/* add to list button */}
           <button onClick={handleAddCoin} className='text-white bg-purple px-2 py-2 absolute top-0 right-0  m-2 rounded-xl'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6 text-white">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </button>
+          {/* back button */}
+          <button onClick={handleBackBtn} className='text-white bg-purple px-2 py-2 absolute top-0 left-0  m-2 rounded-xl'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
             </svg>
 
           </button>
@@ -187,13 +218,13 @@ function SearchSection({ coins }) {
           <div className='text-lg mt-4 self-start sm:self-center ml-6 mb-4'>Description: </div>
           <div id='scrollbar' dangerouslySetInnerHTML={{ __html: coinDescription }} className=' self-start sm:self-center ml-6 h-40 sm:h-72 overflow-scroll [&_a]:text-violet-300'>
           </div>
-          {
+          {/* {
             chartData ?
               <div className='px-2 py-4 mt-4'>
                 <Line style={{ width: '100%' }} options={options} data={data} />
               </div>
               : undefined
-          }
+          } */}
 
         </div>
       </div>

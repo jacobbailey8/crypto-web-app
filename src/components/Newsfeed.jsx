@@ -30,7 +30,7 @@ function Newsfeed() {
     }
 
     return (
-        <div id='newsfeed' className='relative'>
+        <div id='newsfeed' className='relative mt-20'>
             <div className="flex gap-4 items-center">
                 <h1 className='text-3xl font-bold text-white mt-10 ml-4'>Newsfeed</h1>
                 <form onSubmit={handleSubmitSearch} className='mt-10 mr-2 '>
@@ -45,7 +45,7 @@ function Newsfeed() {
                             <p className="text-gray-300 text-md">{item.pubDate}</p>
                             <div className='cursor-pointer w-full h-full rounded-xl'>
                                 <a href={item.link}>
-                                    {item.image_url ? <img className='rounded-xl' src={item.image_url} alt="news image" /> : <hr className='' />}
+                                    {item.image_url ? <div className='w-full max-w-xl mt-2'><img className=' w-full h-full object-cover rounded-xl' src={item.image_url} alt="news image" /></div> : <hr className='' />}
                                 </a>
 
                             </div>
