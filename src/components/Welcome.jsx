@@ -1,7 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { singleCoinData } from '../api/coinGeckoAPI';
 import { motion } from "framer-motion"
+import WatchlistContext from '../WatchlistContext';
 
 
 function Welcome() {
@@ -14,6 +15,8 @@ function Welcome() {
   const [sol, setSol] = useState(undefined);
   const [loadingDoge, setLoadingDoge] = useState(true);
   const [doge, setDoge] = useState(undefined);
+
+
 
   const getData = async () => {
     try {
@@ -38,6 +41,7 @@ function Welcome() {
 
 
   return (
+
     <div id='home' className="w-screen h-screen flex flex-col items-center justify-center relative">
       <h1 className='uppercase text-white text-6xl text-center px-1 font-bold transform -translate-y-4 sm:-translate-y-8 '>Find and Track</h1>
       <h1 className='uppercase text-6xl font-bold transform -translate-y-4 sm:-translate-y-8 bg-gradient-to-r from-purple  to-blue-400 text-transparent bg-clip-text'> Crypto</h1>

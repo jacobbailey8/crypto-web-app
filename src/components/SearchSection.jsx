@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { singleCoinData, getChartData } from '../api/coinGeckoAPI';
 import CoinInfo from './CoinInfo';
 import '../index.css'
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,6 +17,7 @@ import { Line } from 'react-chartjs-2';
 import { useContext } from 'react';
 import WatchlistContext from '../WatchlistContext';
 import '../index.css'
+import { auth } from '../firebase';
 
 
 
@@ -26,6 +28,8 @@ function SearchSection({ coins }) {
   const { currentCoin } = useContext(WatchlistContext);
   const { changeCurrentCoin } = useContext(WatchlistContext);
   const [inputValue, setInputValue] = useState('');
+
+  const { loggedIn } = useContext(WatchlistContext);
 
 
   // // chart section
@@ -93,6 +97,7 @@ function SearchSection({ coins }) {
 
 
   return (
+    loggedIn &&
     <div id='search-coins' className='w-screen  relative '>
       <div className='col-span-1 flex items-center  flex-col'>
         <h1 className='text-white text-3xl m-4 font-bold'>Search Coins</h1>

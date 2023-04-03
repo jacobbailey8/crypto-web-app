@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react'
 import CoinRow from './CoinRow';
 import { useContext } from 'react';
 import WatchlistContext from '../WatchlistContext';
+import { auth } from '../firebase';
 
 
 
 function SecondSection() {
 
     const { watchlist } = useContext(WatchlistContext);
+    const { loggedIn } = useContext(WatchlistContext);
+
 
     const spinLoader = () => {
         document.querySelector('#spin').classList.add('animate-spin');
@@ -18,6 +21,7 @@ function SecondSection() {
     }
 
     return (
+        loggedIn &&
         <div id='watchlist' className='w-screen mt-20 relative'>
             <div className='m-3 flex justify-between items-center'>
                 <h1 className='text-3xl font-bold text-white'>Market Updates</h1>

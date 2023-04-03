@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { generateNews } from '../api/newsDataAPI'
-
+import WatchlistContext from '../WatchlistContext';
+import { auth } from '../firebase';
 function Newsfeed() {
     const [news, setNews] = useState(undefined);
     const [coins, setCoins] = useState(['bitcoin', 'ethereum']);
     const [inputValue, setInputValue] = useState('');
+
+    const { loggedIn } = useContext(WatchlistContext)
+
 
     const getData = async (list) => {
         try {
@@ -30,6 +34,8 @@ function Newsfeed() {
     }
 
     return (
+
+        loggedIn &&
         <div id='newsfeed' className='relative mt-20'>
             <div className="flex gap-4 items-center">
                 <h1 className='text-3xl font-bold text-white mt-10 ml-4'>Newsfeed</h1>
