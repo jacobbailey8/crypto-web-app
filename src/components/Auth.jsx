@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword } from 'firebase/auth'
 import { googleProvider } from '../firebase';
 import WatchlistContext from '../WatchlistContext';
+import googleLogo from '../assets/img/google-logo.png'
+import facebook from '../assets/img/facebook.png'
+import github from '../assets/img/github.png'
+import microsoft from '../assets/img/microsoft.png'
+
+
+
 
 function Auth() {
 
@@ -10,13 +17,21 @@ function Auth() {
     const [password, setPassword] = useState('');
 
     const { changeLoggedIn } = useContext(WatchlistContext);
+    const { resetList } = useContext(WatchlistContext);
+    const { resetUserID } = useContext(WatchlistContext);
+    const { updateList } = useContext(WatchlistContext);
+
+
+
 
 
 
     const signIn = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
-            changeLoggedIn(true);
+            await changeLoggedIn(true);
+            document.querySelector('.Auth').classList.remove('flex');
+            document.querySelector('.Auth').classList.add('hidden');
         } catch (err) {
             console.error(err);
         }
@@ -24,7 +39,9 @@ function Auth() {
     const signInWithGoogle = async () => {
         try {
             await signInWithPopup(auth, googleProvider);
-            changeLoggedIn(true);
+            await changeLoggedIn(true);
+            document.querySelector('.Auth').classList.remove('flex');
+            document.querySelector('.Auth').classList.add('hidden');
 
         } catch (err) {
             console.error(err);
@@ -33,9 +50,20 @@ function Auth() {
 
     const logOut = async () => {
         try {
+            await updateList();
+            await resetList();
             await signOut(auth, googleProvider);
-            changeLoggedIn(false);
+            await changeLoggedIn(false);
 
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const logIn = async () => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            changeLoggedIn(true);
         } catch (err) {
             console.error(err);
         }
@@ -64,12 +92,33 @@ function Auth() {
                     </div>
                 )
             }
-            <h1 className='text-white font-bold text-center text-2xl'>Sign In</h1>
+            <h1 className='text-white font-bold text-center text-2xl'>Sign Up</h1>
             <input onChange={e => setEmail(e.target.value)} placeholder='Email:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
             <input onChange={e => setPassword(e.target.value)} type='password' placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
-            <button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign in</button>
-            <button onClick={signInWithGoogle} className='bg-purple text-white p-2 rounded-lg'>Google</button>
+            <button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign Up</button>
+            <button onClick={logIn} className='bg-purple text-white p-2 rounded-lg'>Log In</button>
+            <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
+
+                <img className='w-7 h-7' src={googleLogo} alt="" />
+                Log In With Google
+            </button>
+            {/* <button onClick={signInWithGoogle} className=' bg-[#3b5998] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
+
+                <img className='w-7 h-7' src={facebook} alt="" />
+                Log In With Facebook
+            </button>
+            <button onClick={signInWithGoogle} className=' bg-[#171515] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
+
+                <img className='w-7 h-7' src={github} alt="" />
+                Log In With Github
+            </button>
+            <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
+
+                <img className='w-4 h-4' src={microsoft} alt="" />
+                Log In With Microsoft
+            </button> */}
             <button onClick={logOut} className='bg-purple text-white p-2 rounded-lg'>Log Out</button>
+
 
 
 

@@ -16,7 +16,7 @@ function Welcome() {
   const [loadingDoge, setLoadingDoge] = useState(true);
   const [doge, setDoge] = useState(undefined);
 
-
+  const { loggedIn } = useContext(WatchlistContext);
 
   const getData = async () => {
     try {
@@ -38,6 +38,10 @@ function Welcome() {
     getData();
   }, [])
 
+  const opeSignIn = () => {
+    document.querySelector('.Auth').classList.remove('hidden');
+    document.querySelector('.Auth').classList.add('flex');
+  }
 
 
   return (
@@ -46,14 +50,26 @@ function Welcome() {
       <h1 className='uppercase text-white text-6xl text-center px-1 font-bold transform -translate-y-4 sm:-translate-y-8 '>Find and Track</h1>
       <h1 className='uppercase text-6xl font-bold transform -translate-y-4 sm:-translate-y-8 bg-gradient-to-r from-purple  to-blue-400 text-transparent bg-clip-text'> Crypto</h1>
       <h1 className='uppercase text-6xl font-bold transform -translate-y-4 sm:-translate-y-8 bg-gradient-to-r from-purple  to-blue-400 text-transparent bg-clip-text'> Currencies</h1>
-      <a href="#search-coins">
-        <button className='p-5 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'>Search Now</button>
-      </a>
-      <div className=" transform translate-y-4">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white animate-bounce w-10 h-10 transform ">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
-        </svg>
-      </div>
+
+      {
+        !loggedIn &&
+        <button onClick={opeSignIn} className='p-5 font-bold rounded-lg  text-white text-xl w-32 bg-purple'>Log In</button>
+      }
+
+      {
+        loggedIn &&
+        <a href="#search-coins">
+          <button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'>Search Now</button>
+        </a>
+      }
+      {
+        loggedIn &&
+        <div className=" transform translate-y-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white animate-bounce w-10 h-10 transform ">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </div>
+      }
       <div className="flex justify-center gap-8 sm:gap-32 w-full transform translate-y-16">
         <div className={'text-white ' + (loadingBit ? '' : '')} onLoad={() => setLoadingBit(false)}>
           {loadingBit && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 animate-spin">

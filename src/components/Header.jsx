@@ -1,11 +1,14 @@
 import { signOut } from 'firebase/auth';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { auth, signInWithGoogle } from '../firebase';
+import WatchlistContext from '../WatchlistContext';
 
 function Header() {
 
   const [headerBG, setHeaderBG] = useState('rgba(0,0,0,0.3');
   const [signedIn, setSignedIn] = useState(false);
+
+  const { loggedIn } = useContext(WatchlistContext);
 
   const handleScroll = () => {
     let scroll = window.scrollY;
@@ -48,8 +51,17 @@ function Header() {
         <a href="#newsfeed"><h1>News</h1></a>
       </div>
       <div className='flex gap-2'>
-        <div className='signOut bg-purple text-white p-1 rounded-lg hidden' onClick={logOut}>SignOut</div>
-        <button onClick={openSignIn} className='signIn border-2 rounded-md border-purple p-1 w-20 text-white hover:bg-purple transition-all duration-300 ease-out'>Sign In</button>
+        {/* <div className='signOut bg-purple text-white p-1 rounded-lg hidden' onClick={logOut}>SignOut</div> */}
+
+        {
+          loggedIn &&
+          <div className=' bg-gradient-to-br  from-purple to-blue-600 from-30% text-xl uppercase flex items-center justify-center p-4 w-10 h-10 text-white font-bold rounded-full'>{auth.currentUser.displayName.charAt(0)}</div>
+        }
+
+        {
+          !loggedIn &&
+          <button onClick={openSignIn} className='signIn border-2 rounded-md border-purple p-1 w-20 text-white hover:bg-purple transition-all duration-300 ease-out'>Sign In</button>
+        }
       </div>
     </div>
   )
