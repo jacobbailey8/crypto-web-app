@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword, signInWithRedirect, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { googleProvider } from '../firebase';
 import WatchlistContext from '../WatchlistContext';
 import googleLogo from '../assets/img/google-logo.png'
@@ -13,6 +13,7 @@ import microsoft from '../assets/img/microsoft.png'
 
 function Auth() {
 
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -20,11 +21,6 @@ function Auth() {
     const { resetList } = useContext(WatchlistContext);
     const { resetUserID } = useContext(WatchlistContext);
     const { updateList } = useContext(WatchlistContext);
-
-
-
-
-
 
     const signIn = async () => {
         try {
@@ -42,7 +38,6 @@ function Auth() {
             await changeLoggedIn(true);
             document.querySelector('.Auth').classList.remove('flex');
             document.querySelector('.Auth').classList.add('hidden');
-
         } catch (err) {
             console.error(err);
         }

@@ -5,6 +5,8 @@ import { motion } from "framer-motion"
 import WatchlistContext from '../WatchlistContext';
 
 
+
+
 function Welcome() {
 
   const [loadingBit, setLoadingBit] = useState(true);
@@ -17,6 +19,10 @@ function Welcome() {
   const [doge, setDoge] = useState(undefined);
 
   const { loggedIn } = useContext(WatchlistContext);
+
+  const { updateList } = useContext(WatchlistContext);
+
+
 
   const getData = async () => {
     try {
@@ -59,7 +65,11 @@ function Welcome() {
       {
         loggedIn &&
         <a href="#search-coins">
-          <button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'>Search Now</button>
+          <motion.button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          > Search Now </motion.button>
+          {/* <button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'>Search Now</button> */}
         </a>
       }
       {
@@ -78,22 +88,21 @@ function Welcome() {
           {
             bitcoin ?
               (
-                <img className='w-20 h-20 sm:w-32 sm:h-32' src={bitcoin.image.small} alt="" />
+                <motion.div
+                  drag
+                  dragConstraints={{
+                    top: -50,
+                    left: -50,
+                    right: 50,
+                    bottom: 50,
+                  }}
+                >
+                  <img className='w-20 h-20 sm:w-32 sm:h-32' src={bitcoin.image.small} alt="" />
+                  <p className='text-white font-bold text-center text-lg mt-1'>{bitcoin.name}</p>
+                  <p className={'mt-1 text-center font-bold sm:text-xl ' + (bitcoin.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{bitcoin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
+                </motion.div>
 
-              )
-              : undefined
-          }
-          {
-            bitcoin ?
-              (
-                <p className='text-white font-bold text-center text-lg mt-1'>{bitcoin.name}</p>
-              )
-              : undefined
-          }
-          {
-            bitcoin ?
-              (
-                <p className={'mt-1 text-center font-bold sm:text-xl ' + (bitcoin.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{bitcoin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
+
               )
               : undefined
           }
@@ -106,25 +115,24 @@ function Welcome() {
           {
             eth ?
               (
-                <img className='w-20 h-20 sm:w-32 sm:h-32' src={eth.image.small} alt="" />
+
+                <motion.div drag
+                  dragConstraints={{
+                    top: -50,
+                    left: -50,
+                    right: 50,
+                    bottom: 50,
+                  }}
+                >
+                  <img className='w-20 h-20 sm:w-32 sm:h-32' src={eth.image.small} alt="" />
+                  <p className='text-white font-bold text-center text-lg mt-1'>{eth.name}</p>
+                  <p className={'mt-2 text-center font-bold sm:text-xl ' + (eth.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{eth.market_data.price_change_percentage_24h.toFixed(2)}%</p>
+                </motion.div>
 
               )
               : undefined
           }
-          {
-            eth ?
-              (
-                <p className='text-white font-bold text-center text-lg mt-1'>{eth.name}</p>
-              )
-              : undefined
-          }
-          {
-            eth ?
-              (
-                <p className={'mt-2 text-center font-bold sm:text-xl ' + (eth.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{eth.market_data.price_change_percentage_24h.toFixed(2)}%</p>
-              )
-              : undefined
-          }
+
 
         </div>
         <div className='text-white  sm:block' onLoad={() => setLoadingSol(false)}>
@@ -134,25 +142,25 @@ function Welcome() {
           {
             sol ?
               (
-                <img className='w-20 h-20 sm:w-32 sm:h-32 rounded-full' src={sol.image.small} alt="" />
+                <motion.div drag
+                  dragConstraints={{
+                    top: -50,
+                    left: -50,
+                    right: 50,
+                    bottom: 50,
+                  }}
+                >
+                  <img className='w-20 h-20 sm:w-32 sm:h-32 rounded-full' src={sol.image.small} alt="" />
+                  <p className='text-white font-bold text-center text-lg mt-1'>{sol.name}</p>
+
+                  <p className={'mt-2 text-center font-bold sm:text-xl ' + (sol.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{sol.market_data.price_change_percentage_24h.toFixed(2)}%</p>
+                </motion.div>
 
               )
               : undefined
           }
-          {
-            sol ?
-              (
-                <p className='text-white font-bold text-center text-lg mt-1'>{sol.name}</p>
-              )
-              : undefined
-          }
-          {
-            sol ?
-              (
-                <p className={'mt-2 text-center font-bold sm:text-xl ' + (sol.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{sol.market_data.price_change_percentage_24h.toFixed(2)}%</p>
-              )
-              : undefined
-          }
+
+
         </div>
         <div className='text-white hidden sm:block' onLoad={() => setLoadingDoge(false)}>
           {loadingDoge && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 animate-spin">
@@ -161,25 +169,24 @@ function Welcome() {
           {
             doge ?
               (
-                <img className='w-20 h-20 sm:w-32 sm:h-32' src={doge.image.small} alt="" />
+                < motion.div drag
+                  dragConstraints={{
+                    top: -50,
+                    left: -50,
+                    right: 50,
+                    bottom: 50,
+                  }}
+                >
+                  <img className='w-20 h-20 sm:w-32 sm:h-32' src={doge.image.small} alt="" />
+                  <p className='text-white font-bold text-center text-lg mt-1'>{doge.name}</p>
+                  <p className={'mt-2 text-center font-bold sm:text-xl ' + (doge.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{doge.market_data.price_change_percentage_24h.toFixed(2)}%</p>
+                </motion.div>
+
 
               )
               : undefined
           }
-          {
-            doge ?
-              (
-                <p className='text-white font-bold text-center text-lg mt-1'>{doge.name}</p>
-              )
-              : undefined
-          }
-          {
-            doge ?
-              (
-                <p className={'mt-2 text-center font-bold sm:text-xl ' + (doge.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{doge.market_data.price_change_percentage_24h.toFixed(2)}%</p>
-              )
-              : undefined
-          }
+
         </div>
 
       </div>

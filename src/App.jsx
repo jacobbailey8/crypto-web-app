@@ -16,7 +16,12 @@ import WatchlistContext from './WatchlistContext';
 
 
 function App() {
+
   const allCoins = coinList;
+
+
+
+
 
 
 

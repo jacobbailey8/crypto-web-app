@@ -3,12 +3,15 @@ import CoinRow from './CoinRow';
 import { useContext } from 'react';
 import WatchlistContext from '../WatchlistContext';
 import { auth } from '../firebase';
+import { Reorder, useDragControls } from 'framer-motion';
 
 
 
 function SecondSection() {
 
+    const controls = useDragControls();
     const { watchlist } = useContext(WatchlistContext);
+    const { setList } = useContext(WatchlistContext);
     const { loggedIn } = useContext(WatchlistContext);
 
 
@@ -30,7 +33,7 @@ function SecondSection() {
                 </svg>
             </div>
 
-            <div className='px-4 w-full text-white mt-6 rounded-t-lg relative flex flex-col gap-4 max-h-[600px] overflow-scroll'>
+            <div className='px-4 w-full text-white mt-6 rounded-t-lg relative flex flex-col max-h-[600px] overflow-scroll'>
                 <div className='head flex justify-around sm:justify-between  text-xl rounded-t-lg p-3 bg-purple '>
                     <div className='w-[50%] sm:w-[25%]'>Coin</div>
                     <div className='hidden sm:block sm:w-[25%] text-center'>Price</div>
@@ -40,11 +43,22 @@ function SecondSection() {
 
                 {
                     watchlist.length > 0 ?
-                        watchlist.map((coin) => (
-                            <CoinRow key={coin} coin={coin} />
-                        ))
-                        :
-                        <p className='text-center text-xl'>No Coins Yet...</p>
+                        // watchlist.map((coin) => (
+                        //     <CoinRow key={coin} coin={coin} />
+                        // ))
+                        // :
+                        // <p className='text-center text-xl'>No Coins Yet...</p>
+
+
+                        <Reorder.Group axis="y" values={watchlist} onReorder={setList}>
+                            {watchlist.map((coin) => (
+                                <Reorder.Item dragListener={false}
+                                    dragControls={controls} key={coin} value={coin}>
+                                    <CoinRow key={coin} coin={coin} controls={controls} />
+                                </Reorder.Item>
+                            ))}
+                        </Reorder.Group>
+                        : undefined
                 }
 
             </div>

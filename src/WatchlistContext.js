@@ -10,13 +10,9 @@ export function WatchlistProvider({ children }) {
     // user state
     const [watchlist, setWatchList] = useState([]);
     const [currentCoin, setCurrentCoin] = useState('bitcoin');
-    const [userID, setUserID] = useState(undefined);
 
     // global app log in status
-    const [loggedIn, setLoggedIn] = useState(false);
-
-    // state that can be used to force update of database
-    const [change, setChange] = useState(0);
+    const [loggedIn, setLoggedIn] = useState();
 
     // reference to database
     const userCollection = collection(db, "users");
@@ -34,23 +30,34 @@ export function WatchlistProvider({ children }) {
             }
         }
         getData();
+
+
     }, [loggedIn])
 
 
 
 
-    const resetUserID = () => {
-        setUserID(undefined);
-    }
+
     const updateList = async () => {
         await setDoc(doc(db, 'users', auth.currentUser.uid), {
             coinList: watchlist
         })
     }
 
+    const setList = (list) => {
+        setWatchList(list);
+    }
 
-    const addToList = (value) => {
+
+    const addToList = async (value) => {
         setWatchList((prev) => [...prev, value]);
+    }
+
+    const removeFromList = async (value) => {
+        const index = watchlist.indexOf(value);
+        if (index > -1) {
+            setWatchList(watchlist.slice(0, index).concat(watchlist.slice(index + 1)));
+        }
     }
 
     const resetList = () => {
@@ -64,7 +71,7 @@ export function WatchlistProvider({ children }) {
     }
 
     return (
-        <WatchlistContext.Provider value={{ watchlist, currentCoin, loggedIn, addToList, changeCurrentCoin, changeLoggedIn, resetList, resetUserID, updateList }}>{children}</WatchlistContext.Provider>
+        <WatchlistContext.Provider value={{ watchlist, currentCoin, loggedIn, addToList, removeFromList, changeCurrentCoin, changeLoggedIn, resetList, updateList, setList }}>{children}</WatchlistContext.Provider>
     )
 }
 

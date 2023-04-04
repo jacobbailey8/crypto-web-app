@@ -2,14 +2,108 @@ import React, { useState, useEffect } from 'react'
 import { useContext } from 'react';
 import WatchlistContext from '../WatchlistContext';
 import { singleCoinData } from '../api/coinGeckoAPI';
+import { prices } from '../data/prices';
+import { motion } from 'framer-motion';
+
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+export const { options } = {
+
+    responsive: false,
+    plugins: {
+        legend: {
+            display: false,
+            position: 'top',
+        },
+        title: {
+            display: false,
+            text: 'Chart.js Line Chart',
+        },
+
+    },
+
+    scales: {
+        // to remove the labels
+        x: {
+            ticks: {
+                display: false,
+            },
+
+            // to remove the x-axis grid
+            grid: {
+                drawBorder: false,
+                display: false,
+            },
+        },
+        // to remove the y-axis labels
+        y: {
+            ticks: {
+                display: false,
+                beginAtZero: true,
+            },
+            // to remove the y-axis grid
+            grid: {
+                drawBorder: false,
+                display: false,
+            },
+        },
+    },
+};
+
+
+const labels = prices.map((item) => item[0]);
+
+export const data = {
+    labels,
+    datasets: [
+        {
+            label: 'Dataset 1',
+            data: prices.map((item) => item[1]),
+            borderColor: 'rgba(115, 6, 125, 1)',
+            backgroundColor: 'rgba(115, 6, 125, 1)',
+        },
+
+    ],
+};
 
 function CoinInfo({ coinID }) {
 
+    // for (let i = 0; i < prices.length; i++) {
+    //     prices[i].shift();
+    // }
+
     const { addToList } = useContext(WatchlistContext);
     const { watchlist } = useContext(WatchlistContext);
+    const { removeFromList } = useContext(WatchlistContext);
+    const { updateList } = useContext(WatchlistContext);
+
+
 
     const [coinData, setCoinData] = useState(undefined);
     const [loading, setLoading] = useState(true);
+
+
+
 
 
 
@@ -25,6 +119,9 @@ function CoinInfo({ coinID }) {
 
         }
         getData();
+        console.log(labels);
+        console.log(prices.map((item) => item[1]));
+
     }, [coinID])
 
     const handleBackBtn = () => {
@@ -36,29 +133,46 @@ function CoinInfo({ coinID }) {
         coinInfo.classList.add('-z-20');
     }
 
-    const handleAddCoin = () => {
+    const handleAddCoin = async () => {
         if (watchlist.includes(coinID)) {
             return;
         }
         else {
             addToList(coinID);
+
             // animate
         }
+    }
+
+    const handleDeleteCoin = () => {
+        removeFromList(coinID);
     }
     return (
         <div className='CoinInfo fixed top-0 left-0 w-screen h-screen -z-20 opacity-0 -translate-y-56 transition-all duration-300 ease-out'>
             {/* back button */}
-            <button onClick={handleBackBtn} className='absolute top-0 left-0 m-4 bg-purple rounded-xl text-white p-2'>
+            <motion.button whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }} onClick={handleBackBtn} className='absolute top-0 left-0 m-4 bg-purple rounded-xl text-white p-2'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                 </svg>
-            </button>
+            </motion.button>
             {/* add button */}
-            <button onClick={handleAddCoin} className='absolute top-0 right-0 m-4 bg-purple rounded-xl text-white p-2'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-            </button>
+            <div whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }} className='absolute top-0 right-0 m-4 flex gap-4'>
+                <motion.button onClick={handleDeleteCoin} className=' bg-purple rounded-xl text-white p-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                    </svg>
+
+                </motion.button>
+                <motion.button whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }} onClick={handleAddCoin} className=' bg-purple rounded-xl text-white p-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </motion.button>
+            </div>
+
 
             {/* main info */}
             <div className='sm:grid grid-cols-3 grid-rows-2 mt-16 sm:mt-48 overflow-scroll'>
@@ -110,10 +224,15 @@ function CoinInfo({ coinID }) {
                                             currency: 'USD'
                                         })}</p> : 'n/a'}
                                     </div>
-                                    <div className='self-start p-4'>
+                                    {/* <div className='self-start p-4'>
                                         <p className='text-xl text-white font-bold'>Description:</p>
                                         {coinData.description ? <div className='max-h-[240px] overflow-scroll description text-white mt-2' dangerouslySetInnerHTML={{ __html: coinData.description.en }} /> : 'No Description Available'}
+                                    </div> */}
+                                    <div className='h-full w-full'>
+                                        <Line style={{ width: '40rem' }} options={options} data={data} />;
+
                                     </div>
+
 
 
 
