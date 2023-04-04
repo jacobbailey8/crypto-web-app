@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/crypto-web-app/static/css/main.28c495f2.css",
+    "main.js": "/crypto-web-app/static/js/main.8d2162ec.js",
+    "static/media/facebook.png": "/crypto-web-app/static/media/facebook.d2260ca9c72b860b5a77.png",
+    "static/media/google-logo.png": "/crypto-web-app/static/media/google-logo.b31361249fb7518952ee.png",
+    "static/media/github.png": "/crypto-web-app/static/media/github.987334e9f782cc505f25.png",
+    "index.html": "/crypto-web-app/index.html",
+    "main.28c495f2.css.map": "/crypto-web-app/static/css/main.28c495f2.css.map",
+    "main.8d2162ec.js.map": "/crypto-web-app/static/js/main.8d2162ec.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.28c495f2.css",
+    "static/js/main.8d2162ec.js"
+  ]
+}
