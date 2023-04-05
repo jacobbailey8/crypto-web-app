@@ -64,23 +64,15 @@ const options = {
 }
 
 
-const labelsSixMonth = prices.map((item) => {
-    let time = new Date(item[0]);
-    return time.toString().slice(4, 15);
-});
-const labelsThreeMonth = prices.slice(prices.length / 2).map((item) => {
-    let time = new Date(item[0]);
-    return time.toString().slice(4, 15);
-});
 
 
-const sixMonthData = prices.map((item) => item[1]);
-const threeMonthData = prices.slice(prices.length / 2).map((item) => item[1]);
+
+
 
 function CoinInfo({ coinID }) {
     const [completeData, setCompleteData] = useState(undefined);
-    const [priceData, setPriceData] = useState(sixMonthData);
-    const [labelData, setLabelData] = useState(labelsSixMonth);
+    const [priceData, setPriceData] = useState(undefined);
+    const [labelData, setLabelData] = useState(undefined);
 
     useEffect(() => {
         const getCompletePrices = async () => {
@@ -94,26 +86,27 @@ function CoinInfo({ coinID }) {
         }
         getCompletePrices();
         changeThreeMonth();
+
     }, [coinID])
 
     const changeThreeMonth = () => {
-        setPriceData(completeData.slice((completeData.length / 4) * 3).map((item) => item[1]));
-        setLabelData(completeData.slice((completeData.length / 4) * 3).map((item) => {
+        setPriceData(completeData?.slice((completeData.length / 4) * 3).map((item) => item[1]));
+        setLabelData(completeData?.slice((completeData.length / 4) * 3).map((item) => {
             let time = new Date(item[0]);
             return time.toString().slice(4, 15)
         }));
     }
     const changeSixMonth = () => {
-        setPriceData(completeData.slice(completeData.length / 2).map((item) => item[1]));
-        setLabelData(completeData.slice(completeData.length / 2).map((item) => {
+        setPriceData(completeData?.slice(completeData.length / 2).map((item) => item[1]));
+        setLabelData(completeData?.slice(completeData.length / 2).map((item) => {
             let time = new Date(item[0]);
             return time.toString().slice(4, 15)
         }));
     }
 
     const changeOneYear = () => {
-        setPriceData(completeData.map((item) => item[1]));
-        setLabelData(completeData.map((item) => {
+        setPriceData(completeData?.map((item) => item[1]));
+        setLabelData(completeData?.map((item) => {
             let time = new Date(item[0]);
             return time.toString().slice(4, 15)
         }));
