@@ -1,13 +1,16 @@
 import { signOut } from 'firebase/auth';
 import React, { useState, useEffect, useContext } from 'react'
 import { auth, signInWithGoogle, googleProvider } from '../firebase';
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 import { motion } from 'framer-motion';
+import LoginContext from '../context/LoginContext';
 
 function Header() {
 
+  // login
+  const { openLogin } = useContext(LoginContext);
+
   const [headerBG, setHeaderBG] = useState('rgba(0,0,0,0.3');
-  const [signedIn, setSignedIn] = useState(false);
 
   const { changeLoggedIn } = useContext(WatchlistContext);
   const { resetList } = useContext(WatchlistContext);
@@ -27,13 +30,6 @@ function Header() {
       window.removeEventListener("scroll", handleScroll);
     }
   }, [])
-
-
-  const openSignIn = () => {
-    document.querySelector('.Auth').classList.remove('hidden');
-    document.querySelector('.Auth').classList.add('flex');
-
-  }
 
   const logOut = async () => {
     try {
@@ -75,8 +71,7 @@ function Header() {
 
         {
           !loggedIn &&
-          <motion.button whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }} onClick={openSignIn} className='signIn border-2 rounded-md border-purple p-1 w-20 text-white hover:bg-purple transition-all duration-300 ease-out'>Sign In</motion.button>
+          <motion.button onClick={openLogin} className='signIn border-2 rounded-md border-purple p-1 w-20 text-white hover:bg-purple transition-all duration-300 ease-out'>Sign In</motion.button>
         }
       </div>
     </div>

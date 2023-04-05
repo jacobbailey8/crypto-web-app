@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { generateNews } from '../api/newsDataAPI'
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 import { auth } from '../firebase';
 function Newsfeed() {
     const [news, setNews] = useState(undefined);

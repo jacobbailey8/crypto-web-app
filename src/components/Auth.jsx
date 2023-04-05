@@ -2,16 +2,22 @@ import React, { useState, useEffect, useContext } from 'react'
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword, signInWithRedirect, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { googleProvider } from '../firebase';
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 import googleLogo from '../assets/img/google-logo.png'
 import facebook from '../assets/img/facebook.png'
 import github from '../assets/img/github.png'
 import microsoft from '../assets/img/microsoft.png'
+import LoginContext from '../context/LoginContext';
+import { motion, AnimatePresence } from 'framer-motion';
 
 
 
 
 function Auth() {
+
+    // login
+    const { closeLogin } = useContext(LoginContext);
+
 
 
     const [email, setEmail] = useState('');
@@ -19,15 +25,12 @@ function Auth() {
 
     const { changeLoggedIn } = useContext(WatchlistContext);
     const { resetList } = useContext(WatchlistContext);
-    const { resetUserID } = useContext(WatchlistContext);
     const { updateList } = useContext(WatchlistContext);
 
     const signIn = async () => {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             await changeLoggedIn(true);
-            document.querySelector('.Auth').classList.remove('flex');
-            document.querySelector('.Auth').classList.add('hidden');
         } catch (err) {
             console.error(err);
         }
@@ -36,8 +39,7 @@ function Auth() {
         try {
             await signInWithPopup(auth, googleProvider);
             await changeLoggedIn(true);
-            document.querySelector('.Auth').classList.remove('flex');
-            document.querySelector('.Auth').classList.add('hidden');
+            closeLogin();
         } catch (err) {
             console.error(err);
         }
@@ -59,19 +61,40 @@ function Auth() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             changeLoggedIn(true);
+            closeLogin();
         } catch (err) {
             console.error(err);
         }
     }
 
-    const closeSignIn = () => {
-        document.querySelector('.Auth').classList.remove('flex');
-        document.querySelector('.Auth').classList.add('hidden');
+
+    const dropIn = {
+        hidden: {
+            y: '-100vh',
+            opacity: 0,
+        },
+        visible: {
+            y: '0',
+            opacity: 1,
+            tranistion: {
+                duration: 0.1,
+                type: 'spring',
+                damping: 25,
+                stiffness: 500,
+
+            }
+        },
+        exit: {
+            y: '100vh',
+            opacity: 0
+
+        }
 
     }
+
     return (
-        <div className='Auth hidden absolute top-0 right-0 m-1 z-20 flex-col p-4 gap-4 rounded-xl bg-black'>
-            <div onClick={closeSignIn} className='absolute top-0 right-0 m-3 cursor-pointer'>
+        <motion.div variants={dropIn} onClick={e => e.stopPropagation()} initial='hidden' animate='visible' exit='exit' className='Auth flex flex-col p-4 gap-4 rounded-xl bg-black relative w-64 sm:w-80 sm:p-8'>
+            <div onClick={closeLogin} className='absolute top-0 right-0 m-3 cursor-pointer'>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -118,7 +141,7 @@ function Auth() {
 
 
 
-        </div>
+        </motion.div>
     )
 }
 

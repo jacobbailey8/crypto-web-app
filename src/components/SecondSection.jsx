@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import CoinRow from './CoinRow';
 import { useContext } from 'react';
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 import { auth } from '../firebase';
-import { Reorder, useDragControls } from 'framer-motion';
+import { Reorder } from 'framer-motion';
 
 
 
 function SecondSection() {
 
-    const controls = useDragControls();
+    // state for reloading
+    const [reload, setReload] = useState(false);
+
     const { watchlist } = useContext(WatchlistContext);
     const { setList } = useContext(WatchlistContext);
     const { loggedIn } = useContext(WatchlistContext);
@@ -17,6 +19,7 @@ function SecondSection() {
 
     const spinLoader = () => {
         document.querySelector('#spin').classList.add('animate-spin');
+        setReload(!reload);
         setTimeout(() => {
             document.querySelector('#spin').classList.remove('animate-spin');
         }, 1000);
@@ -43,18 +46,10 @@ function SecondSection() {
 
                 {
                     watchlist.length > 0 ?
-                        // watchlist.map((coin) => (
-                        //     <CoinRow key={coin} coin={coin} />
-                        // ))
-                        // :
-                        // <p className='text-center text-xl'>No Coins Yet...</p>
-
-
                         <Reorder.Group axis="y" values={watchlist} onReorder={setList}>
                             {watchlist.map((coin) => (
-                                <Reorder.Item dragListener={false}
-                                    dragControls={controls} key={coin} value={coin}>
-                                    <CoinRow key={coin} coin={coin} controls={controls} />
+                                <Reorder.Item key={coin} value={coin}>
+                                    <CoinRow key={coin} coin={coin} />
                                 </Reorder.Item>
                             ))}
                         </Reorder.Group>

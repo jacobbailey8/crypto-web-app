@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { getDoc, collection, addDoc, deleteDoc, doc, updateDoc, setDoc } from 'firebase/firestore'
-import { db } from "./firebase";
-import { auth } from "./firebase";
+import { db } from "../firebase";
+import { auth } from "../firebase";
 
 const WatchlistContext = createContext();
 

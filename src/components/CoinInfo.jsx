@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react';
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 import { singleCoinData } from '../api/coinGeckoAPI';
 import { prices } from '../data/prices';
 import { motion } from 'framer-motion';
@@ -27,7 +27,7 @@ ChartJS.register(
     Legend
 );
 
-export const { options } = {
+const options = {
 
     responsive: false,
     plugins: {
@@ -73,11 +73,12 @@ export const { options } = {
 
 const labels = prices.map((item) => item[0]);
 
-export const data = {
+const data = {
     labels,
     datasets: [
         {
             label: 'Dataset 1',
+            // pointStyle: false,
             data: prices.map((item) => item[1]),
             borderColor: 'rgba(115, 6, 125, 1)',
             backgroundColor: 'rgba(115, 6, 125, 1)',
@@ -232,10 +233,6 @@ function CoinInfo({ coinID }) {
                                         <Line style={{ width: '40rem' }} options={options} data={data} />;
 
                                     </div>
-
-
-
-
                                 </div>
                             )
                             : undefined

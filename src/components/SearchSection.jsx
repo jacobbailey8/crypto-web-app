@@ -15,7 +15,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { useContext } from 'react';
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 import '../index.css'
 import { auth } from '../firebase';
 

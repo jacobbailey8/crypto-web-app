@@ -8,8 +8,9 @@ import SearchSection from './components/SearchSection';
 import coinList from '../src/data/coinList'
 import Newsfeed from './components/Newsfeed';
 import './index.css';
-import { WatchlistProvider } from './WatchlistContext';
-import WatchlistContext from './WatchlistContext';
+import { WatchlistProvider } from '../src/context/WatchlistContext';
+import { LoginProvider } from '../src/context/LoginContext';
+import Backdrop from './components/Backdrop';
 
 
 
@@ -27,15 +28,17 @@ function App() {
 
   return (
     <WatchlistProvider>
-      <div className="App font-space overflow-hidden">
-        <Auth />
-        <div className="bg-black w-screen h-screen fixed inset-0 background" />
-        <Header />
-        <Welcome />
-        <SearchSection coins={allCoins} />
-        <SecondSection />
-        <Newsfeed />
-      </div >
+      <LoginProvider>
+        <div className="App font-space overflow-hidden">
+          <Backdrop />
+          <div className="bg-black w-screen h-screen fixed inset-0 background" />
+          <Header />
+          <Welcome />
+          <SearchSection coins={allCoins} />
+          <SecondSection />
+          <Newsfeed />
+        </div >
+      </LoginProvider>
     </WatchlistProvider>
 
 

@@ -2,12 +2,15 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react';
 import { singleCoinData } from '../api/coinGeckoAPI';
 import { motion } from "framer-motion"
-import WatchlistContext from '../WatchlistContext';
-
+import WatchlistContext from '../context/WatchlistContext';
+import LoginContext from '../context/LoginContext';
 
 
 
 function Welcome() {
+
+  // login
+  const { openLogin } = useContext(LoginContext);
 
   const [loadingBit, setLoadingBit] = useState(true);
   const [bitcoin, setBitcoin] = useState(undefined);
@@ -19,8 +22,6 @@ function Welcome() {
   const [doge, setDoge] = useState(undefined);
 
   const { loggedIn } = useContext(WatchlistContext);
-
-  const { updateList } = useContext(WatchlistContext);
 
 
 
@@ -44,10 +45,6 @@ function Welcome() {
     getData();
   }, [])
 
-  const opeSignIn = () => {
-    document.querySelector('.Auth').classList.remove('hidden');
-    document.querySelector('.Auth').classList.add('flex');
-  }
 
 
   return (
@@ -59,7 +56,8 @@ function Welcome() {
 
       {
         !loggedIn &&
-        <button onClick={opeSignIn} className='p-5 font-bold rounded-lg  text-white text-xl w-32 bg-purple'>Log In</button>
+        <motion.button whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }} onClick={openLogin} className='p-5 font-bold rounded-lg  text-white text-xl w-32 border-2 border-purple bg-transparent hover:bg-purple  transition-all duration-300 ease-out'>Log In</motion.button>
       }
 
       {

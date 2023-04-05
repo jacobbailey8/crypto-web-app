@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { singleCoinData } from '../api/coinGeckoAPI';
 import { useContext } from 'react';
-import WatchlistContext from '../WatchlistContext';
+import WatchlistContext from '../context/WatchlistContext';
 
 
-function CoinRow({ coin, controls }) {
+function CoinRow({ coin }) {
 
     const { changeCurrentCoin } = useContext(WatchlistContext);
 
@@ -55,7 +55,7 @@ function CoinRow({ coin, controls }) {
                                 style: 'currency',
                                 currency: 'USD'
                             }) || 'n/a'}</div>
-                            <div className='w-[5%]' onPointerDown={(e) => controls.start(e)}>
+                            <div className='w-[5%]' >
                                 <svg className='w-6 text-white' fill="none" viewBox="0 0 15 15" height="1em" width="1em" >
                                     <path
                                         stroke="currentColor"
