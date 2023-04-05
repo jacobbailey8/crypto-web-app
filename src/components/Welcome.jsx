@@ -87,14 +87,17 @@ function Welcome() {
             bitcoin ?
               (
                 <motion.div
+                  className='relative cursor-pointer'
                   drag
                   dragConstraints={{
-                    top: -50,
-                    left: -50,
-                    right: 50,
-                    bottom: 50,
+                    top: -2,
+                    left: -2,
+                    right: 2,
+                    bottom: 2,
                   }}
+                  dragElastic={0.5}
                 >
+                  <div className='absolute z-10 bg-transparent w-20 h-20 sm:w-32 sm:h-32'></div>
                   <img className='w-20 h-20 sm:w-32 sm:h-32' src={bitcoin.image.small} alt="" />
                   <p className='text-white font-bold text-center text-lg mt-1'>{bitcoin.name}</p>
                   <p className={'mt-1 text-center font-bold sm:text-xl ' + (bitcoin.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{bitcoin.market_data.price_change_percentage_24h.toFixed(2)}%</p>
@@ -114,14 +117,17 @@ function Welcome() {
             eth ?
               (
 
-                <motion.div drag
+                <motion.div className='relative cursor-pointer'
+                  drag
                   dragConstraints={{
-                    top: -50,
-                    left: -50,
-                    right: 50,
-                    bottom: 50,
+                    top: -2,
+                    left: -2,
+                    right: 2,
+                    bottom: 2,
                   }}
+                  dragElastic={0.5}
                 >
+                  <div className='absolute z-10 bg-transparent w-20 h-20 sm:w-32 sm:h-32'></div>
                   <img className='w-20 h-20 sm:w-32 sm:h-32' src={eth.image.small} alt="" />
                   <p className='text-white font-bold text-center text-lg mt-1'>{eth.name}</p>
                   <p className={'mt-2 text-center font-bold sm:text-xl ' + (eth.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{eth.market_data.price_change_percentage_24h.toFixed(2)}%</p>
@@ -140,14 +146,17 @@ function Welcome() {
           {
             sol ?
               (
-                <motion.div drag
+                <motion.div className='relative cursor-pointer'
+                  drag
                   dragConstraints={{
-                    top: -50,
-                    left: -50,
-                    right: 50,
-                    bottom: 50,
+                    top: -2,
+                    left: -2,
+                    right: 2,
+                    bottom: 2,
                   }}
+                  dragElastic={0.5}
                 >
+                  <div className='absolute z-10 bg-transparent w-20 h-20 sm:w-32 sm:h-32'></div>
                   <img className='w-20 h-20 sm:w-32 sm:h-32 rounded-full' src={sol.image.small} alt="" />
                   <p className='text-white font-bold text-center text-lg mt-1'>{sol.name}</p>
 
@@ -167,14 +176,17 @@ function Welcome() {
           {
             doge ?
               (
-                < motion.div drag
+                < motion.div className='relative cursor-pointer'
+                  drag
                   dragConstraints={{
-                    top: -50,
-                    left: -50,
-                    right: 50,
-                    bottom: 50,
+                    top: -2,
+                    left: -2,
+                    right: 2,
+                    bottom: 2,
                   }}
+                  dragElastic={0.5}
                 >
+                  <div className='absolute z-10 bg-transparent w-20 h-20 sm:w-32 sm:h-32'></div>
                   <img className='w-20 h-20 sm:w-32 sm:h-32' src={doge.image.small} alt="" />
                   <p className='text-white font-bold text-center text-lg mt-1'>{doge.name}</p>
                   <p className={'mt-2 text-center font-bold sm:text-xl ' + (doge.market_data.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-400')}>{doge.market_data.price_change_percentage_24h.toFixed(2)}%</p>

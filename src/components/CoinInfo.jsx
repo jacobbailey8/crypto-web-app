@@ -74,20 +74,9 @@ function CoinInfo({ coinID }) {
     const [priceData, setPriceData] = useState(undefined);
     const [labelData, setLabelData] = useState(undefined);
 
-    useEffect(() => {
-        const getCompletePrices = async () => {
-            try {
-                // api call
-                let data = await getChartData(coinID);
-                setCompleteData(data);
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        getCompletePrices();
-        changeThreeMonth();
 
-    }, [coinID])
+
+
 
     const changeThreeMonth = () => {
         setPriceData(completeData?.slice((completeData.length / 4) * 3).map((item) => item[1]));
@@ -112,6 +101,20 @@ function CoinInfo({ coinID }) {
         }));
     }
 
+    useEffect(() => {
+        const getCompletePrices = async () => {
+            try {
+                // api call
+                let data = await getChartData(coinID);
+                setCompleteData(data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        getCompletePrices();
+        changeThreeMonth();
+
+    }, [coinID])
 
     const data = {
         labels: labelData,
@@ -279,7 +282,7 @@ function CoinInfo({ coinID }) {
                                         <p className='text-xl text-white font-bold'>Description:</p>
                                         {coinData.description ? <div className='max-h-[240px] overflow-scroll description text-white mt-2' dangerouslySetInnerHTML={{ __html: coinData.description.en }} /> : 'No Description Available'}
                                     </div> */}
-                                    <div className='h-full w-full px-4'>
+                                    <div onLoad={changeThreeMonth} className='h-full w-full px-4'>
                                         <Line style={{}} options={options} data={data} />;
                                         <div className='flex justify-center gap-4'>
                                             <motion.button onClick={changeThreeMonth} whileHover={{ scale: 1.1 }}

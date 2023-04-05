@@ -37,7 +37,7 @@ function SecondSection() {
             </div>
 
             <div className='px-4 w-full text-white mt-6 rounded-t-lg relative flex flex-col max-h-[600px] overflow-scroll'>
-                <div className='head flex justify-around sm:justify-between  text-xl rounded-t-lg p-3 bg-purple '>
+                <div className='head flex justify-around sm:justify-between  text-xl rounded-t-lg p-3 bg-purple'>
                     <div className='w-[50%] sm:w-[25%]'>Coin</div>
                     <div className='hidden sm:block sm:w-[25%] text-center'>Price</div>
                     <div className='w-[50%] sm:w-[25%] text-center'>Last 24h</div>
