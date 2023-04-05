@@ -17,7 +17,7 @@ function Backdrop() {
                 mode='wait'
             >
 
-                {loginOpen && <Auth />}
+                {loginOpen && <Auth key={'modal'} />}
             </AnimatePresence>
         </div>
     )

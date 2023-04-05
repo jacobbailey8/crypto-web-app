@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from "react";
 import { getDoc, collection, addDoc, deleteDoc, doc, updateDoc, setDoc } from 'firebase/firestore'
 import { db } from "../firebase";
 import { auth } from "../firebase";
+import { onAuthStateChanged } from 'firebase/auth'
+
 
 const WatchlistContext = createContext();
 
@@ -14,33 +16,43 @@ export function WatchlistProvider({ children }) {
     // global app log in status
     const [loggedIn, setLoggedIn] = useState();
 
-    // reference to database
-    const userCollection = collection(db, "users");
+
 
 
     useEffect(() => {
-        const getData = async () => {
-            if (!loggedIn) {
+        onAuthStateChanged(auth, async function (user) {
+            if (user) {
+                const docref = doc(db, 'users', auth.currentUser.uid);
+                const docSnap = await getDoc(docref);
+                if (docSnap.exists()) {
+                    setWatchList(docSnap.data().coinList);
+                }
+            } else {
                 return;
             }
-            const docref = doc(db, 'users', auth.currentUser.uid);
-            const docSnap = await getDoc(docref);
-            if (docSnap.exists()) {
-                setWatchList(docSnap.data().coinList);
-            }
-        }
-        getData();
+        });
+        // const getData = async () => {
+        //     if (!loggedIn) {
+        //         return;
+        //     }
+        //     const docref = doc(db, 'users', auth.currentUser.uid);
+        //     const docSnap = await getDoc(docref);
+        //     if (docSnap.exists()) {
+        //         setWatchList(docSnap.data().coinList);
+        //     }
+        // }
+        // getData();
 
 
-    }, [loggedIn])
+    }, [])
 
 
 
 
 
-    const updateList = async () => {
+    const updateList = async (list) => {
         await setDoc(doc(db, 'users', auth.currentUser.uid), {
-            coinList: watchlist
+            coinList: list
         })
     }
 
@@ -50,11 +62,21 @@ export function WatchlistProvider({ children }) {
 
 
     const addToList = async (value) => {
-        setWatchList((prev) => [...prev, value]);
+        try {
+            let temp = watchlist.concat(value);
+            await updateList(temp);
+            setWatchList((prev) => [...prev, value]);
+
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
 
     const removeFromList = async (value) => {
         const index = watchlist.indexOf(value);
+        let temp = watchlist.slice(0, index).concat(watchlist.slice(index + 1));
+        await updateList(temp);
         if (index > -1) {
             setWatchList(watchlist.slice(0, index).concat(watchlist.slice(index + 1)));
         }

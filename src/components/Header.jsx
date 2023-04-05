@@ -18,6 +18,8 @@ function Header() {
   const { updateList } = useContext(WatchlistContext);
 
   const { loggedIn } = useContext(WatchlistContext);
+  const { watchlist } = useContext(WatchlistContext);
+
 
   const handleScroll = () => {
     let scroll = window.scrollY;
@@ -33,7 +35,7 @@ function Header() {
 
   const logOut = async () => {
     try {
-      await updateList();
+      await updateList(watchlist);
       await resetList();
       await signOut(auth, googleProvider);
       await changeLoggedIn(false);
@@ -42,9 +44,6 @@ function Header() {
       console.error(err);
     }
   }
-
-
-
 
   return (
     <div style={{ background: headerBG }} className='py-2 px-3 flex justify-between items-center fixed top-0  w-screen z-10 transition-all duration-500 ease-out'>

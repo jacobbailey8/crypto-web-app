@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { useContext } from 'react';
 import WatchlistContext from '../context/WatchlistContext';
 import { singleCoinData } from '../api/coinGeckoAPI';
-import { prices } from '../data/prices';
 import { motion } from 'framer-motion';
+import { getChartData } from '../api/coinGeckoAPI';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+
 
 import {
     Chart as ChartJS,
@@ -44,55 +47,92 @@ const options = {
     },
 
     scales: {
-        // to remove the labels
+
         x: {
             ticks: {
                 display: false,
             },
-
-            // to remove the x-axis grid
-            // grid: {
-            //     drawBorder: false,
-            //     display: false,
-            // },
         },
-        // to remove the y-axis labels
+
         y: {
             ticks: {
                 display: false,
                 beginAtZero: true,
             },
-            // to remove the y-axis grid
-            // grid: {
-            //     drawBorder: false,
-            //     display: false,
-            // },
         },
-    },
-};
+    }
+}
 
 
-const labels = prices.map((item) => {
+const labelsSixMonth = prices.map((item) => {
+    let time = new Date(item[0]);
+    return time.toString().slice(4, 15);
+});
+const labelsThreeMonth = prices.slice(prices.length / 2).map((item) => {
     let time = new Date(item[0]);
     return time.toString().slice(4, 15);
 });
 
-const data = {
-    labels,
-    datasets: [
-        {
-            label: 'PPS (USD)',
-            pointStyle: false,
-            data: prices.map((item) => item[1]),
-            borderColor: 'rgba(115, 6, 125, 1)',
-            backgroundColor: 'rgba(115, 6, 125, 1)',
-        },
 
-    ],
-};
+const sixMonthData = prices.map((item) => item[1]);
+const threeMonthData = prices.slice(prices.length / 2).map((item) => item[1]);
 
 function CoinInfo({ coinID }) {
+    const [completeData, setCompleteData] = useState(undefined);
+    const [priceData, setPriceData] = useState(sixMonthData);
+    const [labelData, setLabelData] = useState(labelsSixMonth);
 
+    useEffect(() => {
+        const getCompletePrices = async () => {
+            try {
+                // api call
+                let data = await getChartData(coinID);
+                setCompleteData(data);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        getCompletePrices();
+        changeThreeMonth();
+    }, [coinID])
+
+    const changeThreeMonth = () => {
+        setPriceData(completeData.slice((completeData.length / 4) * 3).map((item) => item[1]));
+        setLabelData(completeData.slice((completeData.length / 4) * 3).map((item) => {
+            let time = new Date(item[0]);
+            return time.toString().slice(4, 15)
+        }));
+    }
+    const changeSixMonth = () => {
+        setPriceData(completeData.slice(completeData.length / 2).map((item) => item[1]));
+        setLabelData(completeData.slice(completeData.length / 2).map((item) => {
+            let time = new Date(item[0]);
+            return time.toString().slice(4, 15)
+        }));
+    }
+
+    const changeOneYear = () => {
+        setPriceData(completeData.map((item) => item[1]));
+        setLabelData(completeData.map((item) => {
+            let time = new Date(item[0]);
+            return time.toString().slice(4, 15)
+        }));
+    }
+
+
+    const data = {
+        labels: labelData,
+        datasets: [
+            {
+                label: 'PPS (USD)',
+                pointStyle: false,
+                data: priceData,
+                borderColor: 'rgba(115, 6, 125, 1)',
+                backgroundColor: 'rgba(115, 6, 125, 1)',
+            },
+
+        ],
+    };
 
     const { addToList } = useContext(WatchlistContext);
     const { watchlist } = useContext(WatchlistContext);
@@ -121,8 +161,7 @@ function CoinInfo({ coinID }) {
 
         }
         getData();
-        console.log(labels);
-        console.log(prices.map((item) => item[1]));
+
 
     }, [coinID])
 
@@ -150,7 +189,7 @@ function CoinInfo({ coinID }) {
         removeFromList(coinID);
     }
     return (
-        <div className='CoinInfo fixed top-0 left-0 w-screen h-screen -z-20 opacity-0 -translate-y-56 transition-all duration-300 ease-out'>
+        <div className='CoinInfo overflow-scroll fixed top-0 left-0 w-screen h-screen -z-20 opacity-0 -translate-y-56 transition-all duration-300 ease-out'>
             {/* back button */}
             <motion.button whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }} onClick={handleBackBtn} className='absolute top-0 left-0 m-4 bg-purple rounded-xl text-white p-2'>
@@ -159,20 +198,36 @@ function CoinInfo({ coinID }) {
                 </svg>
             </motion.button>
             {/* add button */}
-            <div whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }} className='absolute top-0 right-0 m-4 flex gap-4'>
-                <motion.button onClick={handleDeleteCoin} className=' bg-purple rounded-xl text-white p-2'>
+            <div className='absolute top-0 right-0 m-4 flex gap-4'>
+                {/* <motion.button whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }} onClick={handleDeleteCoin} className=' bg-purple rounded-xl text-white p-2'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                     </svg>
 
-                </motion.button>
-                <motion.button whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }} onClick={handleAddCoin} className=' bg-purple rounded-xl text-white p-2'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                </motion.button>
+                </motion.button> */}
+
+                {
+                    (!watchlist.includes(coinID)) &&
+                    <motion.button whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }} onClick={handleAddCoin} className=' bg-purple rounded-xl text-white p-2'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                    </motion.button>
+                }
+
+                {
+                    (watchlist.includes(coinID)) &&
+                    <motion.button onClick={handleDeleteCoin} whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }} className=' bg-purple rounded-xl text-white p-2'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+
+                    </motion.button>
+                }
+
             </div>
 
 
@@ -217,22 +272,31 @@ function CoinInfo({ coinID }) {
                                 <div className='h-full w-full flex flex-col items-center mt-4 sm:mt-0'>
                                     <div className='sm:flex gap-20 sm:pl-6'>
                                         {coinData.market_data.price_change_percentage_24h ? <p className='text-white text-lg'>Last 24h: <span className={coinData.market_data.price_change_percentage_24h >= 0 ? 'text-green-400' : 'text-red-400'}> {`${coinData.market_data.price_change_percentage_24h.toFixed(3)}%`}</span></p> : <p className='text-white text-lg'>n/a</p>}
-                                        {coinData.market_data ? <p className='text-white text-lg'>Current Price: {coinData.market_data.current_price.usd.toLocaleString('en-US', {
+                                        {coinData.market_data ? <p className='text-white text-lg'>Current Price: {coinData?.market_data?.current_price?.usd?.toLocaleString('en-US', {
                                             style: 'currency',
                                             currency: 'USD'
                                         })}</p> : 'n/a'}
-                                        {coinData.market_data ? <p className='text-white text-lg'>Market Cap: {coinData.market_data.market_cap.usd.toLocaleString('en-US', {
+                                        {coinData.market_data ? <p className='text-white text-lg'>Market Cap: {coinData?.market_data?.market_cap?.usd?.toLocaleString('en-US', {
                                             style: 'currency',
                                             currency: 'USD'
                                         })}</p> : 'n/a'}
                                     </div>
-                                    {/* <div className='self-start p-4'>
+                                    {/* 
+                                    <div className='self-start p-4'>
                                         <p className='text-xl text-white font-bold'>Description:</p>
                                         {coinData.description ? <div className='max-h-[240px] overflow-scroll description text-white mt-2' dangerouslySetInnerHTML={{ __html: coinData.description.en }} /> : 'No Description Available'}
                                     </div> */}
-                                    <div className='h-full w-full'>
-                                        <Line style={{ width: '40rem' }} options={options} data={data} />;
+                                    <div className='h-full w-full px-4'>
+                                        <Line style={{}} options={options} data={data} />;
+                                        <div className='flex justify-center gap-4'>
+                                            <motion.button onClick={changeThreeMonth} whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>3M</motion.button>
+                                            <motion.button onClick={changeSixMonth} whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>6M</motion.button>
+                                            <motion.button onClick={changeOneYear} whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>1Y</motion.button>
 
+                                        </div>
                                     </div>
                                 </div>
                             )

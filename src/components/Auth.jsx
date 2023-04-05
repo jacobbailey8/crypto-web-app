@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { auth } from '../firebase';
-import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword, signInWithRedirect, setPersistence, browserLocalPersistence } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithPopup, signOut, signInWithEmailAndPassword, signInWithRedirect, setPersistence, browserLocalPersistence, browserSessionPersistence } from 'firebase/auth'
 import { googleProvider } from '../firebase';
 import WatchlistContext from '../context/WatchlistContext';
 import googleLogo from '../assets/img/google-logo.png'
@@ -15,6 +15,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 function Auth() {
 
+
+
+
     // login
     const { closeLogin } = useContext(LoginContext);
 
@@ -26,6 +29,19 @@ function Auth() {
     const { changeLoggedIn } = useContext(WatchlistContext);
     const { resetList } = useContext(WatchlistContext);
     const { updateList } = useContext(WatchlistContext);
+    const { watchlist } = useContext(WatchlistContext);
+
+
+
+    // useEffect(() => {
+    //     firebase.auth().onAuthStateChanged(function(user) {
+    //         if (user) {
+    //           // User is signed in.
+    //         } else {
+    //           // No user is signed in.
+    //         }
+    //       });
+    // }, []);
 
     const signIn = async () => {
         try {
@@ -37,7 +53,21 @@ function Auth() {
     }
     const signInWithGoogle = async () => {
         try {
-            await signInWithPopup(auth, googleProvider);
+            setPersistence(auth, browserLocalPersistence)
+                .then(() => {
+                    // Existing and future Auth states are now persisted in the current
+                    // session only. Closing the window would clear any existing state even
+                    // if a user forgets to sign out.
+                    // ...
+                    // New sign-in will be persisted with session persistence.
+                    return signInWithPopup(auth, googleProvider);
+                })
+                .catch((error) => {
+                    // Handle Errors here.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                });
+            // await signInWithPopup(auth, googleProvider);
             await changeLoggedIn(true);
             closeLogin();
         } catch (err) {
@@ -47,7 +77,7 @@ function Auth() {
 
     const logOut = async () => {
         try {
-            await updateList();
+            await updateList(watchlist);
             await resetList();
             await signOut(auth, googleProvider);
             await changeLoggedIn(false);
@@ -74,7 +104,7 @@ function Auth() {
             opacity: 0,
         },
         visible: {
-            y: '0',
+            y: 0,
             opacity: 1,
             tranistion: {
                 duration: 0.1,
@@ -112,7 +142,7 @@ function Auth() {
             }
             <h1 className='text-white font-bold text-center text-2xl'>Sign Up</h1>
             <input onChange={e => setEmail(e.target.value)} placeholder='Email:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
-            <input onChange={e => setPassword(e.target.value)} type='password' placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
+            <input onChange={e => setPassword(e.target.value)} type="password" placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
             <button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign Up</button>
             <button onClick={logIn} className='bg-purple text-white p-2 rounded-lg'>Log In</button>
             <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>

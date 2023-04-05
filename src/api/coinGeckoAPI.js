@@ -13,12 +13,9 @@ const singleCoinData = async (id) => {
 }
 
 const getChartData = async (id) => {
-  let res = await fetch(`${API_BASE}/coins/${id}/market_chart?vs_currency=usd&days=180`);
+  let res = await fetch(`${API_BASE}/coins/${id}/market_chart?vs_currency=usd&days=365`);
   let data = await res.json();
   let full = data.prices;
-  for (let i = 0; i < full.length; i++) {
-    full[i].shift();
-  }
   return full;
 
 }
