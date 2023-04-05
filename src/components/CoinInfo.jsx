@@ -29,7 +29,8 @@ ChartJS.register(
 
 const options = {
 
-    responsive: false,
+
+    responsive: true,
     plugins: {
         legend: {
             display: false,
@@ -50,10 +51,10 @@ const options = {
             },
 
             // to remove the x-axis grid
-            grid: {
-                drawBorder: false,
-                display: false,
-            },
+            // grid: {
+            //     drawBorder: false,
+            //     display: false,
+            // },
         },
         // to remove the y-axis labels
         y: {
@@ -62,23 +63,26 @@ const options = {
                 beginAtZero: true,
             },
             // to remove the y-axis grid
-            grid: {
-                drawBorder: false,
-                display: false,
-            },
+            // grid: {
+            //     drawBorder: false,
+            //     display: false,
+            // },
         },
     },
 };
 
 
-const labels = prices.map((item) => item[0]);
+const labels = prices.map((item) => {
+    let time = new Date(item[0]);
+    return time.toString().slice(4, 15);
+});
 
 const data = {
     labels,
     datasets: [
         {
-            label: 'Dataset 1',
-            // pointStyle: false,
+            label: 'PPS (USD)',
+            pointStyle: false,
             data: prices.map((item) => item[1]),
             borderColor: 'rgba(115, 6, 125, 1)',
             backgroundColor: 'rgba(115, 6, 125, 1)',
@@ -89,9 +93,6 @@ const data = {
 
 function CoinInfo({ coinID }) {
 
-    // for (let i = 0; i < prices.length; i++) {
-    //     prices[i].shift();
-    // }
 
     const { addToList } = useContext(WatchlistContext);
     const { watchlist } = useContext(WatchlistContext);
@@ -189,7 +190,7 @@ function CoinInfo({ coinID }) {
                     {
                         coinData ?
                             (
-                                <div className='w-full h-full flex flex-col items-center justify-center border-b-2 border-white sm:border-b-0 sm:border-r-2 pb-4'>
+                                <div className='w-full h-full flex flex-col items-center justify-center  pb-4'>
                                     {coinData.image ? <img className='w-24 h-24 sm:w-32 sm:h-32 rounded-full' src={coinData.image.small} alt="coinImage" /> : null}
                                     <p className='text-white text-2xl sm:text-4xl font-bold mt-4 text-center'>{coinData.name}</p>
                                     <p className='text-white text-lg sm:text-2xl font-bold mt-2'>Rank: {coinData.market_cap_rank || 'n/a'}</p>
