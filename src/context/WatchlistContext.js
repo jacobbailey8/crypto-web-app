@@ -14,7 +14,9 @@ export function WatchlistProvider({ children }) {
     const [currentCoin, setCurrentCoin] = useState('bitcoin');
 
     // global app log in status
-    const [loggedIn, setLoggedIn] = useState();
+    const [loggedIn, setLoggedIn] = useState(undefined);
+
+
 
 
 
@@ -22,26 +24,17 @@ export function WatchlistProvider({ children }) {
     useEffect(() => {
         onAuthStateChanged(auth, async function (user) {
             if (user) {
+                setLoggedIn(true);
                 const docref = doc(db, 'users', auth.currentUser.uid);
                 const docSnap = await getDoc(docref);
                 if (docSnap.exists()) {
                     setWatchList(docSnap.data().coinList);
                 }
             } else {
+                setLoggedIn(false);
                 return;
             }
         });
-        // const getData = async () => {
-        //     if (!loggedIn) {
-        //         return;
-        //     }
-        //     const docref = doc(db, 'users', auth.currentUser.uid);
-        //     const docSnap = await getDoc(docref);
-        //     if (docSnap.exists()) {
-        //         setWatchList(docSnap.data().coinList);
-        //     }
-        // }
-        // getData();
 
 
     }, [])

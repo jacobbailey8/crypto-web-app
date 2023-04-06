@@ -143,23 +143,24 @@ function Auth() {
             <h1 className='text-white font-bold text-center text-2xl'>Sign Up</h1>
             <input onChange={e => setEmail(e.target.value)} placeholder='Email:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
             <input onChange={e => setPassword(e.target.value)} type="password" placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
-            <button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign Up</button>
+            <motion.button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign Up</motion.button>
+
             {/* <button onClick={logIn} className='bg-purple text-white p-2 rounded-lg'>Log In</button> */}
-            <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
+            <motion.button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
 
                 <img className='w-7 h-7' src={googleLogo} alt="" />
-                Log In With Google
-            </button>
-            <button onClick={signInWithGoogle} className=' bg-[#3b5998] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
+                Continue With Google
+            </motion.button>
+            <motion.button onClick={signInWithGoogle} className=' bg-[#3b5998] py-2 rounded-lg text-white flex items-center justify-center'>
 
                 <img className='w-7 h-7' src={facebook} alt="" />
-                Log In With Facebook
-            </button>
-            <button onClick={signInWithGoogle} className=' bg-[#171515] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
+                Continue With Facebook
+            </motion.button>
+            <motion.button onClick={signInWithGoogle} className=' bg-[#171515] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
 
                 <img className='w-7 h-7' src={github} alt="" />
-                Log In With Github
-            </button>
+                Continue With Github
+            </motion.button>
             {/* <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
 
                 <img className='w-4 h-4' src={microsoft} alt="" />
