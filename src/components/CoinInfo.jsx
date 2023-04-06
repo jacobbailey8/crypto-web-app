@@ -277,23 +277,26 @@ function CoinInfo({ coinID }) {
                                             currency: 'USD'
                                         })}</p> : 'n/a'}
                                     </div>
-                                    {/* 
-                                    <div className='self-start p-4'>
-                                        <p className='text-xl text-white font-bold'>Description:</p>
-                                        {coinData.description ? <div className='max-h-[240px] overflow-scroll description text-white mt-2' dangerouslySetInnerHTML={{ __html: coinData.description.en }} /> : 'No Description Available'}
-                                    </div> */}
-                                    <div onLoad={changeThreeMonth} className='h-full w-full px-4'>
-                                        <Line style={{}} options={options} data={data} />;
-                                        <div className='flex justify-center gap-4'>
-                                            <motion.button onClick={changeThreeMonth} whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>3M</motion.button>
-                                            <motion.button onClick={changeSixMonth} whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>6M</motion.button>
-                                            <motion.button onClick={changeOneYear} whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>1Y</motion.button>
 
+                                    <div className='w-full h-full min-w-full flex overflow-x-auto snap-x'>
+                                        <div onLoad={changeThreeMonth} className='h-full w-full min-w-full px-4 snap-start'>
+                                            <Line style={{}} options={options} data={data} />;
+                                            <div className='flex justify-center gap-4'>
+                                                <motion.button onClick={changeThreeMonth} whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>3M</motion.button>
+                                                <motion.button onClick={changeSixMonth} whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>6M</motion.button>
+                                                <motion.button onClick={changeOneYear} whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }} className='text-white p-2 bg-purple rounded-lg w-8 h-8 text-xs sm:w-10 sm:h-10 sm:text-base'>1Y</motion.button>
+
+                                            </div>
+                                        </div>
+                                        <div className='self-start p-4 w-full h-full min-w-full snap-start'>
+                                            <p className='text-xl text-white font-bold'>Description:</p>
+                                            {coinData.description ? <div className='max-h-[240px] overflow-scroll description text-white mt-2' dangerouslySetInnerHTML={{ __html: coinData.description.en }} /> : 'No Description Available'}
                                         </div>
                                     </div>
+
                                 </div>
                             )
                             : undefined

@@ -20,9 +20,9 @@ function Newsfeed() {
         }
     }
 
-    // useEffect(() => {
-    //     getData(coins);
-    // }, [])
+    useEffect(() => {
+        getData(coins);
+    }, [])
 
     const handleChange = (event) => {
         setInputValue(event.target.value);
@@ -47,10 +47,10 @@ function Newsfeed() {
                 (
                     news.map((item) => (
                         <div key={item.title} className='p-6'>
-                            <a href={item.link}><h2 className='text-white text-xl font-bold cursor-pointer'>{item.title}</h2></a>
+                            <a target='blank' href={item.link}><h2 className='text-white text-xl font-bold cursor-pointer'>{item.title}</h2></a>
                             <p className="text-gray-300 text-md">{item.pubDate}</p>
                             <div className='cursor-pointer w-full h-full rounded-xl'>
-                                <a href={item.link}>
+                                <a target='blank' href={item.link}>
                                     {item.image_url ? <div className='w-full max-w-xl mt-2'><img className=' w-full h-full object-cover rounded-xl' src={item.image_url} alt="news image" /></div> : <hr className='' />}
                                 </a>
 

@@ -13,10 +13,15 @@ html {
         linear-gradient(127deg, rgba(39, 1, 114, 0.8) 20%, rgba(49, 0, 97, 0.5) 70.71%, rgba(115, 6, 125, 0.5)),
         linear-gradient(336deg, rgba(11, 1, 59, 0.8), rgba(8, 8, 173, 0.5) 70.71%, rgba(6, 34, 125, 0.5)); */
 
-    /* background: linear-gradient(217deg, rgba(29, 0, 57, 1) 10%, rgba(4, 1, 14, 1) 60.71%, rgba(33, 6, 125, 1)),
+    background: linear-gradient(217deg, rgba(29, 0, 57, 1) 10%, rgba(4, 1, 14, 1) 60.71%, rgba(33, 6, 125, 1)),
         linear-gradient(127deg, rgba(39, 1, 114, 1) 20%, rgba(49, 0, 97, 1) 70.71%, rgba(115, 6, 125, 1)),
-        linear-gradient(336deg, rgba(11, 1, 59, 1), rgba(8, 8, 173, 1) 711%, rgba(6, 34, 125, 1)); */
-    background: linear-gradient(0deg, #0f051d 30%, #130749)
+        linear-gradient(336deg, rgba(11, 1, 59, 1), rgba(8, 8, 173, 1) 711%, rgba(6, 34, 125, 1));
+
+    /* background: linear-gradient(217deg, rgb(4, 51, 80) 5%, rgb(51, 20, 60) 60.71%, rgba(33, 6, 125, 1)),
+        linear-gradient(127deg, rgba(39, 1, 114, 1) 20%, rgba(49, 0, 97, 1) 70.71%, rgb(35, 8, 37)),
+        linear-gradient(336deg, rgba(11, 1, 59, 1), rgb(10, 10, 201) 711%, rgba(6, 34, 125, 1)); */
+
+    /* background: linear-gradient(0deg, #0f051d 30%, #130749) */
 }
 
 .CoinInfo {

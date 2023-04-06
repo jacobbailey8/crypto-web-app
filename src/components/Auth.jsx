@@ -109,8 +109,8 @@ function Auth() {
             tranistion: {
                 duration: 0.1,
                 type: 'spring',
-                damping: 25,
-                stiffness: 500,
+                damping: 15,
+                stiffness: 250,
 
             }
         },
@@ -144,13 +144,13 @@ function Auth() {
             <input onChange={e => setEmail(e.target.value)} placeholder='Email:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
             <input onChange={e => setPassword(e.target.value)} type="password" placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
             <button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign Up</button>
-            <button onClick={logIn} className='bg-purple text-white p-2 rounded-lg'>Log In</button>
+            {/* <button onClick={logIn} className='bg-purple text-white p-2 rounded-lg'>Log In</button> */}
             <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
 
                 <img className='w-7 h-7' src={googleLogo} alt="" />
                 Log In With Google
             </button>
-            {/* <button onClick={signInWithGoogle} className=' bg-[#3b5998] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
+            <button onClick={signInWithGoogle} className=' bg-[#3b5998] p-2 rounded-lg text-white flex items-center justify-center gap-2'>
 
                 <img className='w-7 h-7' src={facebook} alt="" />
                 Log In With Facebook
@@ -160,12 +160,12 @@ function Auth() {
                 <img className='w-7 h-7' src={github} alt="" />
                 Log In With Github
             </button>
-            <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
+            {/* <button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>
 
                 <img className='w-4 h-4' src={microsoft} alt="" />
                 Log In With Microsoft
-            </button> */}
-            <button onClick={logOut} className='bg-purple text-white p-2 rounded-lg'>Log Out</button>
+            </button>
+            <button onClick={logOut} className='bg-purple text-white p-2 rounded-lg'>Log Out</button> */}
 
 
 
