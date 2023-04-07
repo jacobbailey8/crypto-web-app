@@ -10,7 +10,7 @@ function Backdrop() {
     const { closeLogin } = useContext(LoginContext);
 
     return (
-        <div onClick={closeLogin} className={'absolute w-screen h-screen bg-overlay z-10  items-center justify-center flex ' + (loginOpen ? ' flex' : ' hidden')}>
+        <div onClick={closeLogin} className={'absolute w-screen h-screen bg-overlay z-30  items-center justify-center flex ' + (loginOpen ? ' flex' : ' hidden')}>
             {loginOpen && <Auth key={'modal'} />}
         </div>
     )

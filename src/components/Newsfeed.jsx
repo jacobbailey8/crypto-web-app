@@ -20,9 +20,9 @@ function Newsfeed() {
         }
     }
 
-    // useEffect(() => {
-    //     getData(coins);
-    // }, [])
+    useEffect(() => {
+        getData(coins);
+    }, [])
 
     const handleChange = (event) => {
         setInputValue(event.target.value);
@@ -40,10 +40,10 @@ function Newsfeed() {
             <div className="flex gap-4 items-center">
                 <h1 className='text-3xl font-bold text-white mt-10 ml-4'>Newsfeed</h1>
                 <form onSubmit={handleSubmitSearch} className='mt-10 mr-2 '>
-                    <input onChange={handleChange} value={inputValue} type="text" name="" id="" placeholder='Crypto Name:' className='bg-overlay py-2 px-4 rounded-full text-white w-full' />
+                    <input onChange={handleChange} value={inputValue} type="text" name="" id="" placeholder='Crypto Name:' className='bg-white py-2 px-4 mr-2 rounded-lg text-gray-700 w-full focus:outline-none' />
                 </form>
             </div>
-            {news ?
+            {(news && news.length > 0) ?
                 (
                     news.map((item) => (
                         <div key={item.title} className='p-6'>

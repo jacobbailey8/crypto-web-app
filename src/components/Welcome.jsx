@@ -64,11 +64,10 @@ function Welcome() {
       {
         loggedIn &&
         <a href="#search-coins">
-          <motion.button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'
+          <motion.button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-gradient-to-br from-[#7e0caf] to-[#0c8ac5] from-30% '
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           > Search Now </motion.button>
-          {/* <button className='py-5 w-40 font-bold rounded-full  text-white text-xl transform -translate-y-2 bg-purple'>Search Now</button> */}
         </a>
       }
       {
@@ -79,7 +78,7 @@ function Welcome() {
           </svg>
         </div>
       }
-      <div className="flex justify-center gap-8 sm:gap-32 w-full transform translate-y-16">
+      <div className="flex justify-center gap-12 sm:gap-32 w-full transform translate-y-16">
         <div className={'text-white ' + (loadingBit ? '' : '')} onLoad={() => setLoadingBit(false)}>
           {loadingBit && <BlocksWave color='white' width={'4rem'} height={'4rem'} />}
           {
@@ -164,7 +163,7 @@ function Welcome() {
 
 
         </div>
-        <div className='text-white hidden sm:block' onLoad={() => setLoadingDoge(false)}>
+        <div className='text-white hidden md:block' onLoad={() => setLoadingDoge(false)}>
           {loadingDoge && <BlocksWave color='white' width={'4rem'} height={'4rem'} />}
           {
             doge ?

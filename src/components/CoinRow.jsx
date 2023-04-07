@@ -32,9 +32,9 @@ function CoinRow({ coin }) {
     return (
         <div className='' onLoad={() => setLoading(false)}>
             {loading &&
-                <div className='flex justify-between '>
-                    <div className='bg-overlay animate-pulse rounded-xl w-[70%] h-20'></div>
-                    <div className='bg-overlay animate-pulse rounded-xl w-[25%] h-20'></div>
+                <div className='flex justify-between mt-6'>
+                    <div className=' bg-zinc-800 animate-pulse rounded-xl w-[70%] h-20'></div>
+                    <div className='bg-zinc-800 animate-pulse rounded-xl w-[25%] h-20'></div>
                 </div>}
 
             {
@@ -46,12 +46,12 @@ function CoinRow({ coin }) {
                                 <img className='rounded-full' src={coinData.image?.small || ''} alt="coinImage" />
                                 <p className='transfrom translate-x-2'>{coinData?.name}</p>
                             </div>
-                            <div className='hidden sm:block sm:w-[25%] text-center'>{coinData.market_data?.current_price?.usd?.toLocaleString('en-US', {
+                            <div className='hidden sm:block sm:w-[25%] text-center'>{coinData?.market_data?.current_price?.usd?.toLocaleString('en-US', {
                                 style: 'currency',
                                 currency: 'USD'
                             }) || 'n/a'}</div>
-                            <div className={'w-[45%] sm:w-[25%] text-center ' + (coinData.market_data?.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-300')}>{coinData.market_data?.price_change_percentage_24h?.toFixed(3) || 'n/a'}{coinData.market_data?.price_change_percentage_24h ? '%' : undefined}</div>
-                            <div className='hidden sm:block sm:w-[20%] text-center '>{coinData.market_data.market_cap?.usd?.toLocaleString('en-US', {
+                            <div className={'w-[45%] sm:w-[25%] text-center ' + (coinData?.market_data?.price_change_percentage_24h >= 0 ? 'text-green-300' : 'text-red-300')}>{coinData.market_data?.price_change_percentage_24h?.toFixed(3) || 'n/a'}{coinData.market_data?.price_change_percentage_24h ? '%' : undefined}</div>
+                            <div className='hidden sm:block sm:w-[20%] sm:max-w-[16rem] overflow-auto text-center '>{coinData?.market_data?.market_cap?.usd?.toLocaleString('en-US', {
                                 style: 'currency',
                                 currency: 'USD'
                             }) || 'n/a'}</div>
