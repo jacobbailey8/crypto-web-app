@@ -4,6 +4,7 @@ import { singleCoinData } from '../api/coinGeckoAPI';
 import { motion } from "framer-motion"
 import WatchlistContext from '../context/WatchlistContext';
 import LoginContext from '../context/LoginContext';
+import { BlocksWave } from 'react-svg-spinners';
 
 
 
@@ -80,9 +81,7 @@ function Welcome() {
       }
       <div className="flex justify-center gap-8 sm:gap-32 w-full transform translate-y-16">
         <div className={'text-white ' + (loadingBit ? '' : '')} onLoad={() => setLoadingBit(false)}>
-          {loadingBit && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 animate-spin">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>}
+          {loadingBit && <BlocksWave color='white' width={'4rem'} height={'4rem'} />}
           {
             bitcoin ?
               (
@@ -110,9 +109,7 @@ function Welcome() {
 
         </div>
         <div className='text-white' onLoad={() => setLoadingEth(false)}>
-          {loadingEth && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 animate-spin">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>}
+          {loadingEth && <BlocksWave color='white' width={'4rem'} height={'4rem'} />}
           {
             eth ?
               (
@@ -140,9 +137,7 @@ function Welcome() {
 
         </div>
         <div className='text-white  sm:block' onLoad={() => setLoadingSol(false)}>
-          {loadingSol && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 animate-spin">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>}
+          {loadingSol && <BlocksWave color='white' width={'4rem'} height={'4rem'} />}
           {
             sol ?
               (
@@ -170,9 +165,7 @@ function Welcome() {
 
         </div>
         <div className='text-white hidden sm:block' onLoad={() => setLoadingDoge(false)}>
-          {loadingDoge && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-14 h-14 animate-spin">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>}
+          {loadingDoge && <BlocksWave color='white' width={'4rem'} height={'4rem'} />}
           {
             doge ?
               (

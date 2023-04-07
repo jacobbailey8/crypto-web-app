@@ -40,8 +40,8 @@ function CoinRow({ coin }) {
             {
                 coinData ?
                     (
-                        <div onClick={showCoinInfo} className='flex items-center rounded-lg  text-xl px-3 py-8 text-white hover:bg-overlay cursor-pointer'>
-
+                        <div className='flex items-center rounded-lg  text-xl px-3 py-8 text-white hover:bg-overlay cursor-pointer relative'>
+                            <div onClick={showCoinInfo} className='w-[95%] h-full absolute top-0 bg-transparent'></div>
                             <div className='w-[50%] flex items-center sm:w-[25%]'>
                                 <img className='rounded-full' src={coinData.image?.small || ''} alt="coinImage" />
                                 <p className='transfrom translate-x-2'>{coinData?.name}</p>

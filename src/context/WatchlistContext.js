@@ -16,11 +16,6 @@ export function WatchlistProvider({ children }) {
     // global app log in status
     const [loggedIn, setLoggedIn] = useState(undefined);
 
-
-
-
-
-
     useEffect(() => {
         onAuthStateChanged(auth, async function (user) {
             if (user) {

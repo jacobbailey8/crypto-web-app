@@ -38,7 +38,6 @@ function Header() {
       await updateList(watchlist);
       await resetList();
       await signOut(auth, googleProvider);
-      await changeLoggedIn(false);
 
     } catch (err) {
       console.error(err);
@@ -65,7 +64,7 @@ function Header() {
         {
           loggedIn &&
           <motion.button whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }} className=' bg-gradient-to-br  from-purple to-blue-600 from-30% text-xl uppercase flex items-center justify-center p-4 w-10 h-10 text-white font-bold rounded-full'>{auth.currentUser?.displayName?.charAt(0)}</motion.button>
+            whileTap={{ scale: 0.9 }} className=' bg-gradient-to-br  from-purple to-blue-600 from-30% text-xl uppercase flex items-center justify-center p-4 w-10 h-10 text-white font-bold rounded-full'>{auth.currentUser?.email.charAt(0)}</motion.button>
         }
 
         {

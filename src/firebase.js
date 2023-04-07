@@ -16,17 +16,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
-setPersistence(auth, browserSessionPersistence)
-    .then(() => {
-        return signInWithEmailAndPassword(auth, email, password);
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error(errorCode);
-        console.error(errorMessage);
-
-    });
 
 export const googleProvider = new GoogleAuthProvider();
 export const db = getFirestore(app);

@@ -4,8 +4,7 @@ import WatchlistContext from '../context/WatchlistContext';
 import { singleCoinData } from '../api/coinGeckoAPI';
 import { motion } from 'framer-motion';
 import { getChartData } from '../api/coinGeckoAPI';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import { NinetyRingWithBg, BlocksShuffleThree, BarsScaleMiddle } from "react-svg-spinners";
 
 
 import {
@@ -139,6 +138,7 @@ function CoinInfo({ coinID }) {
 
     const [coinData, setCoinData] = useState(undefined);
     const [loading, setLoading] = useState(true);
+    const [addCoinLoad, setAddCoinLoad] = useState(false);
 
 
 
@@ -175,14 +175,16 @@ function CoinInfo({ coinID }) {
             return;
         }
         else {
-            addToList(coinID);
-
-            // animate
+            setAddCoinLoad(true);
+            await addToList(coinID);
+            setAddCoinLoad(false);
         }
     }
 
-    const handleDeleteCoin = () => {
-        removeFromList(coinID);
+    const handleDeleteCoin = async () => {
+        setAddCoinLoad(true);
+        await removeFromList(coinID);
+        setAddCoinLoad(false);
     }
     return (
         <div className='CoinInfo overflow-scroll fixed top-0 left-0 w-screen h-screen -z-20 opacity-0 -translate-y-56 transition-all duration-300 ease-out'>
@@ -207,9 +209,16 @@ function CoinInfo({ coinID }) {
                     (!watchlist.includes(coinID)) &&
                     <motion.button whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }} onClick={handleAddCoin} className=' bg-purple rounded-xl text-white p-2'>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
+
+                        {addCoinLoad ?
+
+                            <NinetyRingWithBg color='white' />
+
+                            : (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>)
+                        }
+
                     </motion.button>
                 }
 
@@ -231,20 +240,15 @@ function CoinInfo({ coinID }) {
             <div className='sm:grid grid-cols-3 grid-rows-2 mt-16 sm:mt-48 overflow-scroll'>
                 <div onLoad={() => setLoading(false)} className='col-span-1 flex flex-col items-center sm:h-full'>
                     {loading &&
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-white animate-spin">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                            </svg>
-
-                        </div>
+                        <BlocksShuffleThree width={'8rem'} height={'8rem'} color={'white'} />
                     }
                     {
                         coinData ?
                             (
                                 <div className='w-full h-full flex flex-col items-center justify-center  pb-4'>
-                                    {coinData.image ? <img className='w-24 h-24 sm:w-32 sm:h-32 rounded-full' src={coinData.image.small} alt="coinImage" /> : null}
-                                    <p className='text-white text-2xl sm:text-4xl font-bold mt-4 text-center'>{coinData.name}</p>
-                                    <p className='text-white text-lg sm:text-2xl font-bold mt-2'>Rank: {coinData.market_cap_rank || 'n/a'}</p>
+                                    {coinData?.image ? <img className='w-24 h-24 sm:w-32 sm:h-32 rounded-full' src={coinData?.image?.small} alt="coinImage" /> : null}
+                                    <p className='text-white text-2xl sm:text-4xl font-bold mt-4 text-center'>{coinData?.name}</p>
+                                    <p className='text-white text-lg sm:text-2xl font-bold mt-2'>Rank: {coinData?.market_cap_rank || 'n/a'}</p>
                                 </div>
                             )
                             :
@@ -255,12 +259,7 @@ function CoinInfo({ coinID }) {
                 </div>
                 <div onLoad={() => setLoading(false)} className='col-span-2'>
                     {loading &&
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-white animate-spin">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                            </svg>
-
-                        </div>
+                        <BarsScaleMiddle color='rgb(132, 0, 152)' width={'12rem'} height={'12rem'} />
                     }
                     {
                         coinData ?

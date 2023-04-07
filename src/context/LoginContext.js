@@ -12,16 +12,12 @@ export function LoginProvider({ children }) {
             setLoginOpen(true);
         }
     }
-
     const closeLogin = () => {
         if (loginOpen) {
             setLoginOpen(false);
         }
 
     }
-
-
-
     return (
         <LoginContext.Provider value={{ loginOpen, openLogin, closeLogin }}>{children}</LoginContext.Provider>
     )

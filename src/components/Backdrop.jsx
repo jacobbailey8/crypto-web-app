@@ -9,16 +9,9 @@ function Backdrop() {
     const { loginOpen } = useContext(LoginContext);
     const { closeLogin } = useContext(LoginContext);
 
-
     return (
         <div onClick={closeLogin} className={'absolute w-screen h-screen bg-overlay z-10  items-center justify-center flex ' + (loginOpen ? ' flex' : ' hidden')}>
-            <AnimatePresence
-                initial={true}
-                mode='wait'
-            >
-
-                {loginOpen && <Auth key={'modal'} />}
-            </AnimatePresence>
+            {loginOpen && <Auth key={'modal'} />}
         </div>
     )
 }
