@@ -62,12 +62,6 @@ function Header() {
       </div>
       <div className='flex gap-2 relative'>
 
-        {/* {
-          loggedIn &&
-          <motion.button
-            whileTap={{ scale: 0.9 }} className=' border-2 rounded-md border-purple py-1 px-2  text-white hover:bg-purple  transition-all duration-300 ease-out cursor-pointer' onClick={logOut}>SignOut</motion.button>
-
-        } */}
 
         {/* sidebar */}
         {
@@ -92,6 +86,7 @@ function Header() {
           !loggedIn &&
           <motion.button whileTap={{ scale: 0.9 }} onClick={openLogin} className='signIn border-2 rounded-md border-purple p-1 w-20 text-white hover:bg-purple transition-all duration-300 ease-out'>Sign In</motion.button>
         }
+
       </div>
     </div>
   )

@@ -37,7 +37,20 @@ function Auth() {
             closeLogin();
             changeLoggedIn(true);
         } catch (err) {
-            console.error(err);
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                closeLogin();
+                changeLoggedIn(true);
+            } catch (err) {
+                let errorDiv = document.querySelector('.error');
+                errorDiv.innerHTML = `Error: Incorrect Password`;
+                errorDiv.classList.remove('translate-y-full');
+                errorDiv.classList.add('translate-y-0');
+                setTimeout(() => {
+                    errorDiv.classList.remove('translate-y-0');
+                    errorDiv.classList.add('-translate-y-full');
+                }, 4000);
+            }
         }
     }
     const signInWithGoogle = async () => {
@@ -46,7 +59,14 @@ function Auth() {
             console.log(auth.currentUser);
             closeLogin();
         } catch (err) {
-            console.error(err);
+            let errorDiv = document.querySelector('.error');
+            errorDiv.innerHTML = `Error: Account Already Exists With Another Provider`;
+            errorDiv.classList.remove('translate-y-full');
+            errorDiv.classList.add('translate-y-0');
+            setTimeout(() => {
+                errorDiv.classList.remove('translate-y-0');
+                errorDiv.classList.add('-translate-y-full');
+            }, 4000);
         }
     }
     const signInWithGithub = async () => {
@@ -55,7 +75,14 @@ function Auth() {
             console.log(auth.currentUser);
             closeLogin();
         } catch (err) {
-            console.error(err);
+            let errorDiv = document.querySelector('.error');
+            errorDiv.innerHTML = `Error: Account Already Exists With Another Provider`;
+            errorDiv.classList.remove('translate-y-full');
+            errorDiv.classList.add('translate-y-0');
+            setTimeout(() => {
+                errorDiv.classList.remove('translate-y-0');
+                errorDiv.classList.add('-translate-y-full');
+            }, 4000);
         }
     }
     const signInWithFacebook = async () => {
@@ -64,7 +91,14 @@ function Auth() {
             console.log(auth.currentUser);
             closeLogin();
         } catch (err) {
-            console.error(err);
+            let errorDiv = document.querySelector('.error');
+            errorDiv.innerHTML = `Error: Account Already Exists With Another Provider`;
+            errorDiv.classList.remove('translate-y-full');
+            errorDiv.classList.add('translate-y-0');
+            setTimeout(() => {
+                errorDiv.classList.remove('translate-y-0');
+                errorDiv.classList.add('-translate-y-full');
+            }, 4000);
         }
     }
 
@@ -75,15 +109,6 @@ function Auth() {
             await signOut(auth);
             await changeLoggedIn(false);
 
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
-    const logIn = async () => {
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            closeLogin();
         } catch (err) {
             console.error(err);
         }
@@ -117,6 +142,7 @@ function Auth() {
     return (
         <AnimatePresence initial={true}
             mode='wait' >
+            <div className='error fixed top-0 text-center bg-red-400 text-red-900 w-48 rounded-b-lg py-2 text-sm px-2 transform -translate-y-full transition-all duration-200 ease-out'>Error: Try a different password or sign in method.</div>
             <motion.div key={'modal'} variants={dropIn} onClick={e => e.stopPropagation()} initial='hidden' animate='visible' exit='exit' className='Auth flex flex-col p-4 gap-4 rounded-xl bg-black relative w-64 sm:w-80 sm:p-8'>
                 <div onClick={closeLogin} className='absolute top-0 right-0 m-3 cursor-pointer'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-white">
@@ -135,9 +161,9 @@ function Auth() {
                     )
                 }
                 <h1 className='text-white font-bold text-center text-2xl'>Sign Up</h1>
-                <input onChange={e => setEmail(e.target.value)} placeholder='Email:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
-                <input onChange={e => setPassword(e.target.value)} type="password" placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg' type="text" />
-                <motion.button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign Up</motion.button>
+                <input onChange={e => setEmail(e.target.value)} placeholder='Email:' className=' bg-zinc-900 text-white p-2 rounded-lg focus:outline-none' type="text" />
+                <input onChange={e => setPassword(e.target.value)} type="password" placeholder='Password:' className=' bg-zinc-900 text-white p-2 rounded-lg focus:outline-none' />
+                <motion.button onClick={signIn} className='bg-purple text-white p-2 rounded-lg'>Sign In</motion.button>
 
                 {/* <button onClick={logIn} className='bg-purple text-white p-2 rounded-lg'>Log In</button> */}
                 <motion.button onClick={signInWithGoogle} className=' bg-white p-2 rounded-lg text-[#757575] flex items-center justify-center gap-2'>

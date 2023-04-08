@@ -98,7 +98,7 @@ function SearchSection({ coins }) {
         </div>
 
         {/* new dropdown */}
-        <motion.div onClick={e => e.stopPropagation()} animate={dropdownOpen ? open : closed} className=' bg-gradient-to-tr from-purple to-blue-950 from-5% w-72 sm:w-96 ml-4 rounded-b-lg text-white overflow-auto'>
+        <motion.div onClick={e => e.stopPropagation()} animate={dropdownOpen ? open : closed} className=' bg-gray-200 w-72 sm:w-96 ml-4 rounded-b-lg text-gray-600 overflow-auto'>
 
           {
             inputValue.length == 0 &&
