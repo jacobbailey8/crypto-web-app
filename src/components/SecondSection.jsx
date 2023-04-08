@@ -33,24 +33,23 @@ function SecondSection() {
                 <h1 className='text-3xl font-bold text-white px-2'>Market Updates</h1>
 
             </div>
-
-            <div className='px-4 w-full text-white mt-6 rounded-t-lg relative flex flex-col max-h-[600px] overflow-scroll'>
-                <div className='head flex justify-around sm:justify-between  text-xl rounded-t-lg p-3 bg-purple'>
-                    <div className='w-[50%] sm:w-[25%]'>Coin</div>
-                    <div className='hidden sm:block sm:w-[25%] text-center'>Price</div>
-                    <div className='w-[50%] sm:w-[25%] text-center'>Last 24h</div>
-                    <div className='hidden sm:block sm:w-[25%] text-center'>Market Cap</div>
-                </div>
+            <div className='head text-white mx-4 flex justify-around sm:justify-between  text-xl rounded-t-lg p-3 bg-purple'>
+                <div className='w-[50%] sm:w-[25%]'>Coin</div>
+                <div className='hidden sm:block sm:w-[25%] text-center'>Price</div>
+                <div className='w-[50%] sm:w-[25%] text-center'>Last 24h</div>
+                <div className='hidden sm:block sm:w-[25%] text-center'>Market Cap</div>
+            </div>
+            <div className='px-4 w-full text-white  rounded-t-lg relative flex flex-col max-h-[600px] overflow-scroll'>
 
                 {
                     watchlist.length > 0 ?
-                        <Reorder.Group axis="y" values={watchlist} onReorder={setList}>
-                            {watchlist.map((coin) => (
-                                <Reorder.Item key={coin} value={coin}>
-                                    <CoinRow key={coin} coin={coin} />
-                                </Reorder.Item>
-                            ))}
-                        </Reorder.Group>
+                        (
+                            watchlist.map((coin) => (
+
+                                <CoinRow key={coin} coin={coin} />
+
+                            ))
+                        )
                         : undefined
                 }
 
