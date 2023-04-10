@@ -112,8 +112,10 @@ function CoinInfo({ coinID }) {
                 console.error(err);
             }
         }
-        getCompletePrices();
-        changeThreeMonth();
+        if (coinID !== undefined) {
+            getCompletePrices();
+            changeThreeMonth();
+        }
 
     }, [coinID])
 
@@ -164,7 +166,9 @@ function CoinInfo({ coinID }) {
             }
 
         }
-        getData();
+        if (coinID !== undefined) {
+            getData();
+        }
 
 
     }, [coinID])
@@ -241,9 +245,9 @@ function CoinInfo({ coinID }) {
             {/* main info */}
             <div className='sm:grid grid-cols-3 grid-rows-2 mt-16 sm:mt-48 overflow-scroll'>
                 <div onLoad={() => setLoading(false)} className='col-span-1 flex flex-col items-center sm:h-full'>
-                    {loading &&
+                    {/* {loading &&
                         <BlocksShuffleThree width={'8rem'} height={'8rem'} color={'white'} />
-                    }
+                    } */}
                     {
                         coinData ?
                             (
@@ -261,7 +265,11 @@ function CoinInfo({ coinID }) {
                 </div>
                 <div onLoad={() => setLoading(false)} className='col-span-2'>
                     {loading &&
-                        <BarsScaleMiddle color='rgb(132, 0, 152)' width={'12rem'} height={'12rem'} />
+                        (<>
+                            <BarsScaleMiddle color='rgb(132, 0, 152)' width={'12rem'} height={'12rem'} />
+                            <div>Could not load data. Please refresh page to try again.</div>
+                        </>
+                        )
                     }
                     {
                         coinData ?

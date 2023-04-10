@@ -11,7 +11,7 @@ export function WatchlistProvider({ children }) {
 
     // user state
     const [watchlist, setWatchList] = useState([]);
-    const [currentCoin, setCurrentCoin] = useState('bitcoin');
+    const [currentCoin, setCurrentCoin] = useState(undefined);
 
     // global app log in status
     const [loggedIn, setLoggedIn] = useState(undefined);
