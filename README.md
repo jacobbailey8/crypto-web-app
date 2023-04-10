@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Crypto App
+This project allows a user to create and account and then search and view market details on various crypto currencies. It also allows them to view recent news articles regarding crypto and to filter the results based on a key word.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Live Demo 👇
 
-## Available Scripts
+[Crypto App](https://crypto-app-4c031.web.app/)
 
-In the project directory, you can run:
+# Tools
+- React JS
+- Tailwind CSS
+- Firebase
+- CoinGecko API
+- NewsData API
+- Chart JS
+- Framer Motion
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img width="372" alt="Screen Shot 2023-04-10 at 6 30 05 PM" src="https://user-images.githubusercontent.com/89887769/231011476-958713bb-a82f-4a9d-ad68-db8851ffb602.png">
+<img width="373" alt="Screen Shot 2023-04-10 at 6 29 40 PM" src="https://user-images.githubusercontent.com/89887769/231011484-8ddb4725-a71b-4fb8-af3f-ea392e072610.png">
+<img width="371" alt="Screen Shot 2023-04-10 at 6 30 38 PM" src="https://user-images.githubusercontent.com/89887769/231011490-9e655b08-1369-4182-900b-1c1ff65532bd.png">
+<img width="1000" alt="Screen Shot 2023-04-10 at 6 31 20 PM" src="https://user-images.githubusercontent.com/89887769/231011497-82b9d68c-de35-442d-8a6d-df29e3626331.png">
+<img width="371" alt="Screen Shot 2023-04-10 at 6 33 11 PM" src="https://user-images.githubusercontent.com/89887769/231011631-97d768b5-e6dd-404e-8ce8-6f0cfeae8dfc.png">
